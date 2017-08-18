@@ -1,5 +1,6 @@
 package controlers;
 import java.util.ArrayList;
+
 import entity.*;
 
 
@@ -31,6 +32,8 @@ private ArrayList<TipoElemento> tipo_elem ;
 	public TipoElemento getByNombreNombreTipo(TipoElemento te){
 		
 		for (int i=0; i < this.tipo_elem.size(); i++){
+		
+	
 			if(tipo_elem.get(i).getNombre_El().equalsIgnoreCase(te.getNombre_El())
 				&& tipo_elem.get(i).getNombre_TE().equalsIgnoreCase(te.getNombre_TE())) {
 				return tipo_elem.get(i);		
@@ -39,6 +42,8 @@ private ArrayList<TipoElemento> tipo_elem ;
 		return null; 
 		
 	}
+
+		
 	
 	public ArrayList<TipoElemento> getAll(){
 		return this.tipo_elem;

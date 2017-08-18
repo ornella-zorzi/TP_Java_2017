@@ -2,7 +2,6 @@ package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 import controlers.CtrlABMCPersona;
-
 import entity.Persona;
 
 public class ABMPersonaConsole {
@@ -69,7 +68,12 @@ public class ABMPersonaConsole {
 		}else if (h.equalsIgnoreCase("N")) {
 			p.setHabilitado(false);
 		}
-		ctrl.add(p);
+		try{
+				ctrl.add(p);
+		} catch (Exception e ){
+			e.printStackTrace();
+		}
+	//	ctrl.add(p);
 	}
 	private void baja(){
 		System.out.println("\n\nEliminar persona");
@@ -77,7 +81,12 @@ public class ABMPersonaConsole {
 		Persona p=new Persona();
 		System.out.println("Ingrese DNI:");
 		p.setDni(s.nextLine());
-		ctrl.delete(p);
+		try{
+			ctrl.delete(p);
+		} catch (Exception e ){
+			e.printStackTrace();
+		}
+	//	ctrl.delete(p);
 
 	}
 	
@@ -87,7 +96,11 @@ public class ABMPersonaConsole {
 		System.out.println("#############");
 		System.out.println("Ingrese DNI:");
 		p.setDni(s.nextLine());
-		this.mostrar(ctrl.getByDni(p));
+		try{ this.mostrar(ctrl.getByDni(p));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		//this.mostrar(ctrl.getByDni(p));
 		
 		System.out.println("\nIngrese Nuevo Nombre");
 		p.setNombre(s.nextLine());
@@ -106,7 +119,12 @@ public class ABMPersonaConsole {
 		}else if (h.equalsIgnoreCase("N")) {
 			p.setHabilitado(false);
 		}
-		ctrl.update(p);
+		try { 
+			 ctrl.update(p);
+		} catch (Exception e ){
+			e.printStackTrace();
+		}
+		///ctrl.update(p);
 	}
 	
 	private void consulta(){
@@ -120,12 +138,22 @@ public class ABMPersonaConsole {
 		String rta=s.nextLine();
 		switch (rta) {
 		case "1":
-			this.mostrar(ctrl.getAll());
+			try {
+				this.mostrar(ctrl.getAll());
+			} catch (Exception e1){
+				e1.printStackTrace();
+			}
+		//	this.mostrar(ctrl.getAll());
 			break;
 		case "2":
 			System.out.println("Ingrese DNI:");
 			p.setDni(s.nextLine());
-			this.mostrar(ctrl.getByDni(p));
+			try { 
+				this.mostrar(ctrl.getByDni(p));
+			} catch (Exception e ){
+				e.printStackTrace();
+			}
+		//	this.mostrar(ctrl.getByDni(p));
 			
 			break;
 		case "3":
