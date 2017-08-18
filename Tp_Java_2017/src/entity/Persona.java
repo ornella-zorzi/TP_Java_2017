@@ -9,6 +9,15 @@ public class Persona {
 	private String contraseña;
 	private boolean habilitado;
 	private int id;
+private Categoria categoria;
+	
+	public Categoria getCategoria(){
+		return categoria;
+	}
+	
+	public void setCategoria(Categoria categoria){
+		this.categoria=categoria;
+	}
 	
 	public int getId() {
 		return id;

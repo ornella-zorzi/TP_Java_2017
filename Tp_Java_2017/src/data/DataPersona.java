@@ -13,10 +13,11 @@ public class DataPersona {
 		ArrayList<Persona> pers = new ArrayList<Persona>();
 		try{ 
 			stmt = FactoryConexion.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("Select* from persona ");
+			rs = stmt.executeQuery("Select* from persona p inner join cateoria c on p.id_cat=c.id_cat ");
 			if (rs!= null ){
 				while(rs.next()){
 					Persona p = new Persona();
+					p.setCategoria(new Categoria());
 					p.setId(rs.getInt("id"));
 					p.setNombre(rs.getString("nombre"));
 					p.setApellido(rs.getString("apellido"));
@@ -25,6 +26,8 @@ public class DataPersona {
 					p.setUsuario(rs.getString("usuario"));
 					p.setContraseña(rs.getString("contraseña"));
 					p.setHabilitado(rs.getBoolean("habilitado"));
+					p.getCategoria().setId_cat(rs.getInt("id_cat"));
+					p.getCategoria().setNombre_cat(rs.getString("nombre_cat"));
 					pers.add(p);
 						
 				}
@@ -50,13 +53,14 @@ public class DataPersona {
     	PreparedStatement stmt= null;
     	ResultSet rs=null;
     	try {
-    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select id, nombre, apellido, email, usuario, contraseña, habilitado"
-    		 		+ "from persona where dni=? ");
+    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select p.id_per, nombre, apellido, email, usuario, contraseña, habilitado, id_cat, nombre_cat"
+    		 		+ "from persona p inner join categoria c on p.id_cat=c.id_cat where dni=? ");
     		 stmt.setString(1, per.getDni());
     		 rs=stmt.executeQuery();
     		 if(rs!=null && rs.next()){
     			 p=new Persona();
-    			 p.setId(rs.getInt("id"));
+    			 p.setCategoria(new Categoria());
+    			 p.setId(rs.getInt("id_per"));
 					p.setNombre(rs.getString("nombre"));
 					p.setApellido(rs.getString("apellido"));
 					p.setDni(rs.getNString("dni"));
@@ -64,6 +68,8 @@ public class DataPersona {
 					p.setUsuario(rs.getString("usuario"));
 					p.setContraseña(rs.getString("contraseña"));
 					p.setHabilitado(rs.getBoolean("habilitado"));
+					p.getCategoria().setId_cat(rs.getInt("id_cat"));
+					p.getCategoria().setNombre_cat(rs.getString("nombre_cat"));
     		 }
     		 
     	} catch (Exception e ){
@@ -84,7 +90,7 @@ public class DataPersona {
     	PreparedStatement stmt=null;
     	ResultSet keyResultSet=null;
     	try{ stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-				"insert into persona(dni, nombre, apellido, email, usuario, contraseña,  habilitado) values (?,?,?,?,?,?,?)",
+				"insert into persona(dni, nombre, apellido, email, usuario, contraseña,  habilitado, id_cat) values (?,?,?,?,?,?,?,?)",
 				PreparedStatement.RETURN_GENERATED_KEYS);
     		  stmt.setString(1,p.getDni());
     		  stmt.setString(2,p.getNombre());
@@ -93,6 +99,7 @@ public class DataPersona {
     		  stmt.setString(5,p.getUsuario());
     		  stmt.setString(6,p.getContraseña());
     		  stmt.setBoolean(7,p.isHabilitado());
+    		  stmt.setInt(8,p.getCategoria().getId_cat());
     		  stmt.executeUpdate();
     		  keyResultSet=stmt.getGeneratedKeys();
     		  if (keyResultSet!=null && keyResultSet.next()){

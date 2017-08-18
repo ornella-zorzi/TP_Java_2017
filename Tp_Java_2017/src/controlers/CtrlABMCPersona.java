@@ -1,16 +1,20 @@
 package controlers;
 import java.util.ArrayList;
+import data.DataCategoria;
 import entity.Persona;
+import entity.Categoria;
 import data.DataPersona;
 
 public class CtrlABMCPersona {
 	private DataPersona dataPer;
+	private DataCategoria dataCat;
 	
 private ArrayList<Persona> pers;
 	
 	
 	public CtrlABMCPersona(){
 		dataPer = new DataPersona();
+		dataCat = new DataCategoria();
 		pers= new ArrayList<Persona>();
 			  
 	}
@@ -55,5 +59,8 @@ private ArrayList<Persona> pers;
 	public ArrayList<Persona> getAll() throws Exception {
 		//return this.pers;
 		return dataPer.getAll();
+	}
+	public ArrayList<Categoria> getCategorias() throws Exception{
+		return dataCat.getAll();
 	}
 }

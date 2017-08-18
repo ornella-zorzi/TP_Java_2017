@@ -1,6 +1,6 @@
 package entity;
 
-public class Categoria extends Persona  {
+public class Categoria   {
 
 	private int id_cat;
 	private String nombre_cat;
@@ -18,11 +18,26 @@ public class Categoria extends Persona  {
 		this.nombre_cat = nombre_cat;
 	}
 	
-	public Categoria (int id_cat, String nombre_cat ){
+	 /* public Categoria (int id_cat, String nombre_cat ){
 		super();
 		this.setId_cat(id_cat);
 		this.setNombre_cat(nombre_cat);
 			
+	}*/
+	
+	@Override
+	public String toString(){
+		return this.getNombre_cat();
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		return (o instanceof Categoria && ((Categoria)o).getId_cat()==this.getId_cat());
+	}
+	
+	@Override
+	public int hashCode(){
+		return ((Integer)this.getId_cat()).hashCode();
 	}
 	
 }
