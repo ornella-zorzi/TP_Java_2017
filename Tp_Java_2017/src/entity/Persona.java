@@ -9,7 +9,6 @@ public class Persona {
 	private String contraseña;
 	private boolean habilitado;
 	private int id;
-	private int hola;
 private Categoria categoria;
 	
 	public Categoria getCategoria(){
