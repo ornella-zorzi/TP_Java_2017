@@ -1,13 +1,12 @@
 package entity;
 
 public class Persona {
-	private int hol;
 	private String dni;
 	private String nombre;
 	private String apellido;
 	private String email;
 	private String usuario;
-	private String contraseÃ±a;
+	private String contraseña;
 	private boolean habilitado;
 	private int id;
 private Categoria categoria;
