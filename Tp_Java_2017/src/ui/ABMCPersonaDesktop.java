@@ -69,7 +69,7 @@ public class ABMCPersonaDesktop extends JInternalFrame {
 	public ABMCPersonaDesktop() {
 		setClosable(true);
 		setDefaultCloseOperation(JInternalFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 329, 350);
+		setBounds(100, 100, 329, 426);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -108,7 +108,7 @@ public class ABMCPersonaDesktop extends JInternalFrame {
 			}
 		});
 		
-		btnBorrar = new JButton("Borrar");
+		btnBorrar = new JButton("Eliminar");
 		btnBorrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -152,48 +152,49 @@ public class ABMCPersonaDesktop extends JInternalFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(chkHabilitado)
 						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblApellido)
-								.addComponent(lblDni)
-								.addComponent(lblNombre)
-								.addComponent(lblEmail)
-								.addComponent(lblId))
-							.addPreferredGap(ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(chkHabilitado)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addGap(20)
-									.addComponent(btnBuscar))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(2)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(57)
-							.addComponent(cboCategoria, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblCategoria)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(btnAgregar)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnBorrar)
-							.addGap(18)
-							.addComponent(btnModificar))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblUsuario)
-								.addComponent(lblContraseña))
-							.addGap(56)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtContraseña, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+										.addComponent(lblApellido)
+										.addComponent(lblDni)
+										.addComponent(lblNombre)
+										.addComponent(lblEmail)
+										.addComponent(lblId))
+									.addPreferredGap(ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+											.addGap(20)
+											.addComponent(btnBuscar))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addGap(2)
+											.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(txtApellido, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(57)
+									.addComponent(cboCategoria, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblCategoria)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(btnAgregar)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(btnBorrar)
+									.addGap(18)
+									.addComponent(btnModificar))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblUsuario)
+									.addGap(76)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(txtContraseña, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+						.addComponent(lblContraseña))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -233,11 +234,11 @@ public class ABMCPersonaDesktop extends JInternalFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUsuario)
 						.addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblContraseña)
 						.addComponent(txtContraseña, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAgregar)
 						.addComponent(btnBorrar)
@@ -249,7 +250,8 @@ public class ABMCPersonaDesktop extends JInternalFrame {
 
 	private void cargarListas() {
 		try {
-			 this.cboCategoria.setModel(new DefaultComboBoxModel(ctrl.getCategorias().toArray()));
+			
+			 this.cboCategoria.setModel(new DefaultComboBoxModel(ctrl.getCategoria().toArray()));
 			this.cboCategoria.setSelectedIndex(-1);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
@@ -299,6 +301,8 @@ public class ABMCPersonaDesktop extends JInternalFrame {
 		this.chkHabilitado.setSelected(p.isHabilitado());
 		this.txtId.setText(String.valueOf(p.getId()));
 		this.cboCategoria.setSelectedItem(p.getCategoria());
+		this.txtUsuario.setText(p.getUsuario());
+		this.txtContraseña.setText(p.getContraseña());
 	}
 	
 	private Persona mapearDeForm(){
@@ -313,6 +317,8 @@ public class ABMCPersonaDesktop extends JInternalFrame {
 		if (cboCategoria.getSelectedIndex() != -1){
 			p.setCategoria((Categoria)this.cboCategoria.getSelectedItem());
 		}
+		p.setUsuario(this.txtUsuario.getText());
+		p.setContraseña(this.txtContraseña.getText()); 
 		return p;
 	}
 	

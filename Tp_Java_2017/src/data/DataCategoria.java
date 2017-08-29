@@ -22,7 +22,7 @@ public class DataCategoria {
 				while(rs.next()){
 					Categoria c=new Categoria();
 					c.setId_cat(rs.getInt("id"));
-					c.setNombre_cat(rs.getString("nombre cat "));
+					c.setNombre_cat(rs.getString("nombre_cat "));
 					cats.add(c);
 				}
 			}

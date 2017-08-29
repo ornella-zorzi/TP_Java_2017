@@ -1,24 +1,25 @@
 package data;
 import entity.*;
 import util.ApplicationException;
+
 import java.sql.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import java.security.KeyStore.ProtectionParameter;
+
 
 public class DataPersona {
-	public ArrayList<Persona> getAll() throws Exception{
+	
+	public ArrayList<Persona> getAll() throws ApplicationException{
 		Statement stmt=null;
 		ResultSet rs=null;
 		ArrayList<Persona> pers = new ArrayList<Persona>();
 		try{ 
 			stmt = FactoryConexion.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("Select* from persona p inner join cateoria c on p.id_cat=c.id_cat ");
+			rs = stmt.executeQuery("Select  *  from persona  inner join categoria  on persona.id_cat=categoria.id_cat ");
 			if (rs!= null ){
 				while(rs.next()){
 					Persona p = new Persona();
 					p.setCategoria(new Categoria());
-					p.setId(rs.getInt("id"));
+					p.setId(rs.getInt("id_per"));
 					p.setNombre(rs.getString("nombre"));
 					p.setApellido(rs.getString("apellido"));
 					p.setDni(rs.getNString("dni"));
@@ -34,7 +35,7 @@ public class DataPersona {
 			}
 			
 		} catch (SQLException e ){
-			throw e;
+			//throw e;
 		} catch (ApplicationException ade){
 			throw ade;
 		} try {
@@ -53,8 +54,8 @@ public class DataPersona {
     	PreparedStatement stmt= null;
     	ResultSet rs=null;
     	try {
-    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select p.id_per, nombre, apellido, email, usuario, contraseña, habilitado, id_cat, nombre_cat"
-    		 		+ "from persona p inner join categoria c on p.id_cat=c.id_cat where dni=? ");
+    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select p.id_per, p.nombre, p.apellido, p.email, p.usuario, p.contraseña, p.habilitado,p.id_cat, c.nombre_cat"
+    		 		+ "from persona p  inner join categoria c  on p.id_cat=c.id_cat where dni=? ");
     		 stmt.setString(1, per.getDni());
     		 rs=stmt.executeQuery();
     		 if(rs!=null && rs.next()){
@@ -90,8 +91,8 @@ public class DataPersona {
     	PreparedStatement stmt=null;
     	ResultSet keyResultSet=null;
     	try{ stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-				"insert into persona(dni, nombre, apellido, email, usuario, contraseña,  habilitado, id_cat) values (?,?,?,?,?,?,?,?)",
-				PreparedStatement.RETURN_GENERATED_KEYS);
+				"insert into persona(dni, nombre, apellido, email, usuario, contraseña,  habilitado, id_cat) " +
+				 "values (?,?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
     		  stmt.setString(1,p.getDni());
     		  stmt.setString(2,p.getNombre());
     		  stmt.setString(3,p.getApellido());
@@ -115,10 +116,73 @@ public class DataPersona {
     	} catch (SQLException e ){
     		e.printStackTrace();
     	}
-    		
-    	
-    }
+    } 
+
+
+
+public ResultSet getResultSet() throws ApplicationException{	
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try
+		{
+			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+					"SELECT id_per, dni, nombre, apellido, email, usuario, contraseña,  habilitado, id_cat " +
+					"FROM persona  inner join categoria  on persona.id_cat=categoria.id_cat where dni=?");			
+			rs = stmt.executeQuery();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			throw e;
+		}
+
+		return rs;
+		
+	}
+
+
+
+public void update(Persona p){
+	ResultSet rs=null;
+	PreparedStatement stmt=null;	
+	try {
+		stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
+				"UPDATE persona SET dni=?,nombre=?,apellido=?,email=?,usuario=?,contraseña=?,habilitado=?,id_cat=?"+
+				" WHERE id_per=?");	
+		
+		stmt.setInt(1,p.getId());
+		stmt.setString(2,p.getDni());
+		stmt.setString(3,p.getNombre());
+		stmt.setString(4,p.getApellido());
+		stmt.setString(5,p.getEmail());
+		stmt.setString(6,p.getUsuario());
+		stmt.setString(7,p.getContraseña());
+		stmt.setBoolean(8,p.isHabilitado());
+		stmt.setInt(9,p.getCategoria().getId_cat());
+		
+		stmt.execute();
+		
+	} catch (SQLException e) {			
+		e.printStackTrace();
+	} catch (ApplicationException e) {			
+		e.printStackTrace();
+	}
 
 }
 
-
+public void delete(Persona p){
+	PreparedStatement stmt=null;		
+	try {
+		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
+				"delete from persona where id_per=?");
+		stmt.setInt(1,p.getId());
+		stmt.execute();
+	} catch (SQLException e) {			
+		e.printStackTrace();
+	} catch (ApplicationException e) {			
+		e.printStackTrace();
+	} 
+	
+}
+}

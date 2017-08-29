@@ -1,35 +1,49 @@
 package controlers;
 import java.util.ArrayList;
 
-import entity.*;
-
+import data.DataTipoElemento;
+import data.DataElemento;
+import entity.Categoria;
+import entity.Persona;
+import entity.TipoElemento;
+import entity.Elemento;
 
 public class CtrlABMCTipoElemento {
-	
-private ArrayList<TipoElemento> tipo_elem ;
-	
-	
+	private DataElemento dataEl;
+	private DataTipoElemento dataTipoEl;	
+	private ArrayList<TipoElemento> tipoEl ;
+
 	public CtrlABMCTipoElemento(){
+		dataEl = new DataElemento();
+		dataTipoEl = new DataTipoElemento();
+		tipoEl = new ArrayList<TipoElemento>();		
+	}
+	
+	public void add(TipoElemento tiel)throws Exception{
+		dataTipoEl.add(tiel);
+	}
+	
+	public void delete(TipoElemento tiel)throws Exception{
+		dataTipoEl.delete(tiel);
+	}
+	
+	public void update(TipoElemento tiel)throws Exception{
+		dataTipoEl.update(tiel);
+	}
+	public ArrayList<TipoElemento> getAll() throws Exception {
+		//return this.pers;
+		return dataTipoEl.getAll();
 		
-		tipo_elem= new ArrayList<TipoElemento>();
+	}
+	public ArrayList<Elemento> getElemento() throws Exception{
+		return dataEl.getAll();
 		
-	  
 	}
-	public void add(TipoElemento  te) {
-		this.tipo_elem.add(te);
-	}
+}
 	
-	public void delete(TipoElemento  te){
-		this.tipo_elem.remove(te);
-	}
+
 	
-	public void update(TipoElemento  te){
-		this.delete(te);
-		this.add(te);
-	}
-	
-	
-	public TipoElemento getByNombreNombreTipo(TipoElemento te){
+	/*public TipoElemento getByNombreNombreTipo(TipoElemento te){
 		
 		for (int i=0; i < this.tipo_elem.size(); i++){
 		
@@ -47,5 +61,4 @@ private ArrayList<TipoElemento> tipo_elem ;
 	
 	public ArrayList<TipoElemento> getAll(){
 		return this.tipo_elem;
-	}
-}
+	}*/

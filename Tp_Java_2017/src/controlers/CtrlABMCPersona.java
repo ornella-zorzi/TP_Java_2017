@@ -25,17 +25,19 @@ private ArrayList<Persona> pers;
 	}
 	
 	public void delete(Persona p) throws Exception{
-		this.pers.remove(p);
+		//this.pers.remove(p);
+		dataPer.delete(p);
 	}
 	
 	public void update(Persona p)throws Exception {
-		this.delete(p);
-		this.add(p);
+		//this.delete(p);
+		//this.add(p);
+		dataPer.update(p);
 	}
 	
 	public Persona getByDni(Persona p)throws Exception {
 		//return this.pers.get(this.pers.indexOf(p));
-		return this.dataPer.getByDni(p);
+		return dataPer.getByDni(p);
 	}
 	
 	public Persona getByDni(String dni) throws Exception {
@@ -60,7 +62,7 @@ private ArrayList<Persona> pers;
 		//return this.pers;
 		return dataPer.getAll();
 	}
-	public ArrayList<Categoria> getCategorias() throws Exception{
+	public ArrayList<Categoria> getCategoria() throws Exception{
 		return dataCat.getAll();
 	}
 }

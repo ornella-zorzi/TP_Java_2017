@@ -1,8 +1,13 @@
 package data;
 
 import java.sql.*;
-import util.ApplicationException;
 
+import util.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+//import java.sql.ResultSet;
+//import java.sql.Statement;
 
 public class FactoryConexion {
 	
@@ -11,8 +16,9 @@ public class FactoryConexion {
 	private String port="3306";
 	private String user="root";
 	private String password="root";
-	private String db="tp_java_2017";
-	
+	private  String db="tp_java_2017";
+	private String dbType="mysql";
+	//static String url="jdbc:mysql://localhost:3307/"+db;
 
 	private static FactoryConexion instancia;
 	

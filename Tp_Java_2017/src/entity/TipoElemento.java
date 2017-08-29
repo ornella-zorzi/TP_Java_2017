@@ -7,6 +7,15 @@ public class TipoElemento  extends Elemento{
 	private int  cant_reserva_max;
 	private int tiempo_limite;
 	private int dias_anticipacion;
+	private Elemento elemento;
+	
+
+	public Elemento getElemento() {
+		return elemento;
+	}
+	public void setElemento(Elemento elemento) {
+		this.elemento = elemento;
+	}
 	public int getId_TE() {
 		return id_TE;
 	}

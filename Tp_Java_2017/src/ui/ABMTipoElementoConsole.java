@@ -6,7 +6,7 @@ import entity.*;
 import controlers.CtrlABMCTipoElemento;
 
 public class ABMTipoElementoConsole{
-	private Scanner s;
+/*	private Scanner s;
 	private CtrlABMCTipoElemento ctrl;
 	public ABMTipoElementoConsole(){
 		s=new Scanner(System.in);
@@ -136,5 +136,5 @@ public class ABMTipoElementoConsole{
 				" - " + te.getTiempo_limite() + " - " + te.getDias_anticipacion() + " - " );
 			
 	}
-
+*/
 }
