@@ -55,11 +55,11 @@ private Categoria categoria;
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getContraseÃ±a() {
+		return contraseÃ±a;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContraseÃ±a(String contraseÃ±a) {
+		this.contraseÃ±a = contraseÃ±a;
 	}
 	public boolean isHabilitado() {
 		return habilitado;
@@ -71,13 +71,13 @@ private Categoria categoria;
 	public Persona(){
 		
 	}
-	public Persona(String dni, String nombre, String apellido,String email, String usuario, String contraseña,boolean habilitado){
+	public Persona(String dni, String nombre, String apellido,String email, String usuario, String contraseÃ±a,boolean habilitado){
 		this.setDni(dni);
 		this.setNombre(nombre);
 		this.setApellido(apellido);
 		this.setEmail(email);
 		this.setUsuario(usuario);
-		this.setContraseña(contraseña);
+		this.setContraseÃ±a(contraseÃ±a);
 		this.setHabilitado(habilitado);
 			
 	}
