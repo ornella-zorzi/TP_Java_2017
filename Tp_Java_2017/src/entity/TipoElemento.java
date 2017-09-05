@@ -1,6 +1,6 @@
 package entity;
 
-public class TipoElemento  extends Elemento{
+public class TipoElemento  {
 	
 	private int id_TE;
 	private String nombre_TE;
@@ -49,7 +49,6 @@ public class TipoElemento  extends Elemento{
 	public TipoElemento(int id_El, String nombre_El, int id_TE,
 			String nombre_TE, int cant_reserva_max, int tiempo_limite,
 			int dias_anticipacion) {
-		super(id_El, nombre_El);
 		this.id_TE = id_TE;
 		this.nombre_TE = nombre_TE;
 		this.cant_reserva_max = cant_reserva_max;

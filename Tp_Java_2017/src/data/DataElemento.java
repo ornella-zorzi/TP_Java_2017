@@ -1,12 +1,11 @@
 package data;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import entity.*;
+import util.ApplicationException;
+import java.sql.*;
 import java.util.ArrayList;
-import entity.Elemento;
 
 public class DataElemento {
-     public ArrayList<Elemento> getAll() throws Exception{
+     public ArrayList<Elemento> getAll() throws ApplicationException{
 		
 		Statement stmt=null;
 		ResultSet rs=null;
@@ -24,7 +23,7 @@ public class DataElemento {
 				}
 			}
 		} catch (Exception e){
-			throw e;
+			//throw e;
 		}
 		
 		try {

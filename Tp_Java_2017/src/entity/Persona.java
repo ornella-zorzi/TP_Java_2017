@@ -8,9 +8,15 @@ public class Persona {
 	private String usuario;
 	private String contraseña;
 	private boolean habilitado;
-	private int id;
-private Categoria categoria;
+	private int id_per;
+	private Categoria categoria;
 	
+    public int getId_per() {
+		return id_per;
+	}
+	public void setId_per(int id_per) {
+		this.id_per = id_per;
+	}
 	public Categoria getCategoria(){
 		return categoria;
 	}
@@ -18,13 +24,7 @@ private Categoria categoria;
 	public void setCategoria(Categoria categoria){
 		this.categoria=categoria;
 	}
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+		
 	public String getDni() {
 		return dni;
 	}
@@ -55,11 +55,11 @@ private Categoria categoria;
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public String getContraseÃ±a() {
-		return contraseÃ±a;
+	public String getContraseña() {
+		return contraseña;
 	}
-	public void setContraseÃ±a(String contraseÃ±a) {
-		this.contraseÃ±a = contraseÃ±a;
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
 	}
 	public boolean isHabilitado() {
 		return habilitado;
@@ -71,13 +71,13 @@ private Categoria categoria;
 	public Persona(){
 		
 	}
-	public Persona(String dni, String nombre, String apellido,String email, String usuario, String contraseÃ±a,boolean habilitado){
+	public Persona(String dni, String nombre, String apellido,String email, String usuario, String contraseña,boolean habilitado){
 		this.setDni(dni);
 		this.setNombre(nombre);
 		this.setApellido(apellido);
 		this.setEmail(email);
 		this.setUsuario(usuario);
-		this.setContraseÃ±a(contraseÃ±a);
+		this.setContraseña(contraseña);
 		this.setHabilitado(habilitado);
 			
 	}

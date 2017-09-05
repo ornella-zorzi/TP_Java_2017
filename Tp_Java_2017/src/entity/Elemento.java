@@ -27,4 +27,18 @@ public class Elemento {
 	public Elemento (){
 		
 	}
+	@Override
+	public String toString(){
+		return this.getNombre_El();
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		return (o instanceof Elemento && ((Elemento)o).getId_El()==this.getId_El() );
+	}
+	
+	@Override
+	public int hashCode(){
+		return ((Integer)this.getId_El()).hashCode();
+	}
 }

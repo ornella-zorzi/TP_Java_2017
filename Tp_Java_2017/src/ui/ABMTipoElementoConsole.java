@@ -1,9 +1,9 @@
 package ui;
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 import java.util.Scanner;
 
 import entity.*;
-import controlers.CtrlABMCTipoElemento;
+import controlers.CtrlABMCTipoElemento;*/
 
 public class ABMTipoElementoConsole{
 /*	private Scanner s;

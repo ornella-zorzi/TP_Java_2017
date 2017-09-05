@@ -1,7 +1,7 @@
 package util;
 
 public class ApplicationException extends Exception {
-	private Throwable innerException;
+ 	private Throwable innerException;
 	private String message;
 	
 	

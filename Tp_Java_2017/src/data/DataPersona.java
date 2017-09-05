@@ -1,7 +1,6 @@
 package data;
 import entity.*;
 import util.ApplicationException;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -19,7 +18,7 @@ public class DataPersona {
 				while(rs.next()){
 					Persona p = new Persona();
 					p.setCategoria(new Categoria());
-					p.setId(rs.getInt("id_per"));
+					p.setId_per(rs.getInt("id_per"));
 					p.setNombre(rs.getString("nombre"));
 					p.setApellido(rs.getString("apellido"));
 					p.setDni(rs.getNString("dni"));
@@ -54,14 +53,13 @@ public class DataPersona {
     	PreparedStatement stmt= null;
     	ResultSet rs=null;
     	try {
-    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select p.id_per, p.nombre, p.apellido, p.email, p.usuario, p.contraseña, p.habilitado,p.id_cat, c.nombre_cat"
-    		 		+ "from persona p  inner join categoria c  on p.id_cat=c.id_cat where dni=? ");
+    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select p.id_per, p.dni, p.nombre, p.apellido, p.email, p.usuario, p.contraseña, p.habilitado, p.id_cat, c.nombre_cat from persona p  inner join categoria c  on p.id_cat=c.id_cat where p.dni=? ");
     		 stmt.setString(1, per.getDni());
     		 rs=stmt.executeQuery();
     		 if(rs!=null && rs.next()){
     			 p=new Persona();
     			 p.setCategoria(new Categoria());
-    			 p.setId(rs.getInt("id_per"));
+    			 p.setId_per(rs.getInt("id_per"));
 					p.setNombre(rs.getString("nombre"));
 					p.setApellido(rs.getString("apellido"));
 					p.setDni(rs.getNString("dni"));
@@ -104,7 +102,7 @@ public class DataPersona {
     		  stmt.executeUpdate();
     		  keyResultSet=stmt.getGeneratedKeys();
     		  if (keyResultSet!=null && keyResultSet.next()){
-    			  p.setId(keyResultSet.getInt(1));
+    			  p.setId_per(keyResultSet.getInt(1));
     		  }
     		
     	} catch (SQLException | ApplicationException e){
@@ -148,20 +146,19 @@ public void update(Persona p){
 	PreparedStatement stmt=null;	
 	try {
 		stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-				"UPDATE persona SET dni=?,nombre=?,apellido=?,email=?,usuario=?,contraseña=?,habilitado=?,id_cat=?"+
-				" WHERE id_per=?");	
+				"UPDATE persona SET dni=?,nombre=?,apellido=?,email=?,usuario=?,contraseña=?,habilitado=?,id_cat=? WHERE id_per=?");	
 		
-		stmt.setInt(1,p.getId());
-		stmt.setString(2,p.getDni());
-		stmt.setString(3,p.getNombre());
-		stmt.setString(4,p.getApellido());
-		stmt.setString(5,p.getEmail());
-		stmt.setString(6,p.getUsuario());
-		stmt.setString(7,p.getContraseña());
-		stmt.setBoolean(8,p.isHabilitado());
-		stmt.setInt(9,p.getCategoria().getId_cat());
-		
-		stmt.execute();
+		 stmt.setString(1,p.getDni());
+		  stmt.setString(2,p.getNombre());
+		  stmt.setString(3,p.getApellido());
+		  stmt.setString(4,p.getEmail());
+		  stmt.setString(5,p.getUsuario());
+		  stmt.setString(6,p.getContraseña());
+		  stmt.setBoolean(7,p.isHabilitado());
+		  stmt.setInt(8,p.getCategoria().getId_cat());
+		  stmt.setInt(9, p.getId_per());
+		  
+		  stmt.execute();
 		
 	} catch (SQLException e) {			
 		e.printStackTrace();
@@ -176,13 +173,16 @@ public void delete(Persona p){
 	try {
 		stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
 				"delete from persona where id_per=?");
-		stmt.setInt(1,p.getId());
+		stmt.setInt(1,p.getId_per());
 		stmt.execute();
 	} catch (SQLException e) {			
 		e.printStackTrace();
 	} catch (ApplicationException e) {			
 		e.printStackTrace();
-	} 
+	}
+	
 	
 }
+
+
 }

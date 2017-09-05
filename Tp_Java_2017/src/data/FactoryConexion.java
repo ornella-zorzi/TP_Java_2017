@@ -17,7 +17,7 @@ public class FactoryConexion {
 	private String user="root";
 	private String password="root";
 	private  String db="tp_java_2017";
-	private String dbType="mysql";
+	//private String dbType="mysql";
 	//static String url="jdbc:mysql://localhost:3307/"+db;
 
 	private static FactoryConexion instancia;
