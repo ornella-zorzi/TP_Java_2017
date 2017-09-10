@@ -594,13 +594,14 @@ public class ABMCPersonaDesktop extends JInternalFrame {
 		Persona p = this.mapearDeForm();
 		try{
 			ctrl.add(p);
+			this.txtId.setText(String.valueOf(p.getId_per()));
 			notificar("Persona creada con exito ");
 			mapearDeForm();
 			limpiarCampos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
-		this.txtId.setText(String.valueOf(p.getId_per()));
+		//this.txtId.setText(String.valueOf(p.getId_per()));
 	}
 	
 	protected void borrarClick(){

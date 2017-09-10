@@ -62,32 +62,41 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent arg0) {
 				mnuABMCPersonaClick();
 			}
-			
 		});
-		JMenu mnTipoElemento = new JMenu("TipoElemento");
-		menuBar.add(mnTipoElemento);
+		mnPersona.add(mntmAbmcpersona);
 		
-		JMenuItem mntmAbmcTipoElemento = new JMenuItem("ABMCTipoElemento");
-		mntmAbmcTipoElemento.addActionListener(new ActionListener() {
+		JMenu mnElemento = new JMenu("Elemento");
+		menuBar.add(mnElemento);
+		
+		JMenuItem mntmAbmcelemento = new JMenuItem("ABMCElemento");
+		mntmAbmcelemento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mnuABMCElementoClick();
+			}
+		});
+		mnElemento.add(mntmAbmcelemento);
+		
+		JMenuItem mntmAbmctipoelemento = new JMenuItem("ABMCTipoElemento");
+		mntmAbmctipoelemento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mnuABMCTipoElementoClick();
 			}
-			
 		});
-		
-		
-		mnPersona.add(mntmAbmcpersona);
-		mnTipoElemento.add(mntmAbmcTipoElemento);
-		
+		mnElemento.add(mntmAbmctipoelemento);
 	}
-    protected void mnuABMCTipoElementoClick(){
-    	ABMCTipoElementoDesktop te = new ABMCTipoElementoDesktop();
-    	desktopPane.add(te);
-		te.setVisible(true);
-    }
 	protected void mnuABMCPersonaClick() {
 		ABMCPersonaDesktop pd= new ABMCPersonaDesktop();
 		desktopPane.add(pd);
 		pd.setVisible(true);
 	}
-}
+	protected void mnuABMCElementoClick() {
+		ABMCElementoDesktop ed= new ABMCElementoDesktop();
+		desktopPane.add(ed);
+		ed.setVisible(true);
+	}
+	protected void mnuABMCTipoElementoClick() {
+		ABMCTipoElementoDesktop ted= new ABMCTipoElementoDesktop();
+		desktopPane.add(ted);
+		ted.setVisible(true);
+	}
+}  

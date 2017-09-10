@@ -19,8 +19,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
 import controlers.CtrlABMCTipoElemento;
-import entity.Categoria;
-import entity.Persona;
 import entity.TipoElemento;
 import entity.Elemento;
 
@@ -88,14 +86,14 @@ public class ABMCTipoElementoDesktop extends JInternalFrame {
 		JTextField txtDiasAnticipacion = new JTextField();
 		txtDiasAnticipacion.setColumns(10); 
 		
-		JButton btnAgregar = new JButton("Agregar");
+	    btnAgregar = new JButton("Agregar");
 		btnAgregar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				agregarClick();
 			}
 		});
-		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -103,7 +101,7 @@ public class ABMCTipoElementoDesktop extends JInternalFrame {
 			}
 		});
 		
-		JButton btnModificar = new JButton("Modificar");
+		 btnModificar = new JButton("Modificar");
 		btnModificar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
