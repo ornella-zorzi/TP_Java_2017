@@ -23,10 +23,10 @@ public class DataTipoElemento {
 					te.setId_TE(rs.getInt("id_te"));
 					te.getElemento().setId_El(rs.getInt("id_el"));
 					te.getElemento().setNombre_El(rs.getString("nombre_el"));
-					te.setNombre_TE(rs.getString("nombre_te"));
-				    te.setCant_reserva_max(rs.getInt("cant_reserva_max"));
+					te.setNombre_TE(rs.getString("nombre_te"));  
 				    te.setTiempo_limite(rs.getInt("tiempo_limite"));
 				    te.setDias_anticipacion(rs.getInt("dias_anticipacion"));	
+				    te.setCant_reserva_max(rs.getInt("cant_reserva_max"));
 					tipoel.add(te);
 						
 				} 
@@ -45,23 +45,24 @@ public class DataTipoElemento {
 			}
 			return tipoel;
 	} 
-	 public TipoElemento getByNombre(TipoElemento te) throws Exception{
-		 	TipoElemento tel = null;
+	 public TipoElemento getByNombre(TipoElemento tel) throws Exception{
+		 	TipoElemento te = null;
 	    	PreparedStatement stmt= null;
 	    	ResultSet rs=null;
 	    	try {
-	    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select te.id_el,el.nombre_el,te.tiempo_limite,te.dias_anticipacion from tipo_elemento te inner join elemento el on el.id_el=te.id_el where te.nombre_te");
-	    		stmt.setString(2, te.getNombre_TE());
+	    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select te.id_te,te.nombre_te,te.tiempo_limite,te.dias_anticipacion,te.cant_reserva_max, te.id_el,el.nombre_el from tipo_elemento te inner join elemento el on el.id_el=te.id_el where te.nombre_te=?");
+	    		stmt.setString(1, tel.getNombre_TE());
 	    		 rs=stmt.executeQuery();
 	    		 if(rs!=null && rs.next()){
-	    			 tel=new TipoElemento();
-	    			 tel.setElemento(new Elemento());
-	    			 tel.setId_TE(rs.getInt("id_te"));
-	    			 tel.getElemento().setId_El(rs.getInt("id_el"));
-	    			 tel.getElemento().setNombre_El(rs.getString("nombre_el"));
-	    			 tel.setNombre_TE(rs.getString("nombre_te"));
-	    			 tel.setTiempo_limite(rs.getInt("tiempo_limite"));
-	    			 tel.setDias_anticipacion(rs.getInt("dias_anticipacion"));
+	    			 te=new TipoElemento();
+	    			 te.setElemento(new Elemento());
+	    			 te.setId_TE(rs.getInt("id_te"));
+	    			 te.getElemento().setId_El(rs.getInt("id_el"));
+	    			 te.getElemento().setNombre_El(rs.getString("nombre_el"));
+	    			 te.setNombre_TE(rs.getString("nombre_te"));
+	    			 te.setTiempo_limite(rs.getInt("tiempo_limite"));
+	    			 te.setDias_anticipacion(rs.getInt("dias_anticipacion"));
+	    			 te.setCant_reserva_max(rs.getInt( "cant_reserva_max"));
 
 	    		 }
 	    		 
@@ -81,13 +82,14 @@ public class DataTipoElemento {
 	    	PreparedStatement stmt=null;
 	    	ResultSet keyResultSet=null;
 	    	try{ stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into tipo_elemento(id_el,nombre_te,tiempo_limite,dias_anticipacion) " +
-					 "values (?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+					"insert into tipo_elemento(id_el,nombre_te,tiempo_limite,dias_anticipacion,cant_reserva_max) " +
+					 "values (?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
 	    		  stmt.setInt (1,tipoel.getElemento().getId_El());
 	    		  stmt.setString(2,tipoel.getNombre_TE());
-	    		 // stmt.setInt(3,tipoel.getCant_reserva_max());
+	    		
 	    		  stmt.setInt(3,tipoel.getTiempo_limite());
 	    		  stmt.setInt(4,tipoel.getDias_anticipacion());
+	    		  stmt.setInt(5,tipoel.getCant_reserva_max());
 	    		  stmt.executeUpdate();
 	    		  keyResultSet=stmt.getGeneratedKeys();
 	    		  if (keyResultSet!=null && keyResultSet.next()){
@@ -111,7 +113,7 @@ public class DataTipoElemento {
 			try
 			{
 				stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-						"SELECT id_te,id_el,nombre_te,tiempo_limite,dias_anticipacion" +
+						"SELECT id_te,nombre_te,tiempo_limite,dias_anticipacion, cant_reserva_max,id_el" +
 						"FROM  tipo_elemento  inner join elemento  on tipo_elemento.id_el=elemento.id_el where nombre_te=?");		
 				rs = stmt.executeQuery();
 				
@@ -129,7 +131,7 @@ public class DataTipoElemento {
 			PreparedStatement stmt=null;	
 			try {
 				stmt= FactoryConexion.getInstancia().getConn().prepareStatement(	
-						"UPDATE tipo_elemento SET id_el=?,nombre_te=?,tiempo_limite=?,dias_anticipacion=? WHERE id_te=?");		
+						"UPDATE tipo_elemento SET id_el=?,nombre_te=?, cant_reserva_max=?,tiempo_limite=?,dias_anticipacion=?  WHERE id_te=?");		
 				stmt.setInt(1,tipoel.getElemento().getId_El());
 				stmt.setString(2,tipoel.getNombre_TE());
 				stmt.setInt(3,tipoel.getCant_reserva_max());

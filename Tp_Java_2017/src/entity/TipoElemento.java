@@ -56,11 +56,17 @@ public class TipoElemento  {
 		this.dias_anticipacion = dias_anticipacion;
 	}
 	
-	public TipoElemento (){
-		super();
+ public TipoElemento(){
+	 
+ }
+	
+	@Override
+	public boolean equals(Object te){
+		return (te instanceof TipoElemento) &&
+			 (((TipoElemento)te).getNombre_TE().equals(this.getNombre_TE()));
+					
+
 	}
-	
-	
 
 
 	

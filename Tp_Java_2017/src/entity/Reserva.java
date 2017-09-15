@@ -6,7 +6,14 @@ public class Reserva {
 	private Date hora;
 	private Date fecha; 
 	private String estado;
+	private String detalle;
 	
+	public String getDetalle() {
+		return detalle;
+	}
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
+	}
 	public Date getHora() {
 		return hora;
 	}
