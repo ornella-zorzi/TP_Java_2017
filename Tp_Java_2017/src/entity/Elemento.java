@@ -53,9 +53,9 @@ public class Elemento {
 		return ((Integer)this.getId_El()).hashCode();
 	}
 	@Override
-	public boolean equals(Object te){
-		return (te instanceof Elemento) &&
-			 (((Elemento)te).getNombre_El().equals(this.getNombre_El()));
+	public boolean equals(Object e){
+		return (e instanceof Elemento) &&
+			 (((Elemento)e).getNombre_El().equals(this.getNombre_El()));
 					
 
 	}

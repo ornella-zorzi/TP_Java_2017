@@ -39,6 +39,7 @@ public class ABMCPersonaDesktop extends JInternalFrame {
 	private JCheckBox chckbxHabilitado;
 	private JComboBox comboBox;
 	private JButton btnAgregar;
+	private JButton btnBuscar;
 	private JButton btnEliminar;
 	private JButton btnModificar;
 	private JFrame frame;
@@ -133,7 +134,7 @@ public class ABMCPersonaDesktop extends JInternalFrame {
 			}
 		});
 		
-		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar = new JButton("Buscar");
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

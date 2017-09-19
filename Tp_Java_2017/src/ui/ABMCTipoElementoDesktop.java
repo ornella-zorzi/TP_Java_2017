@@ -1,16 +1,16 @@
 package ui;
-
-import java.awt.EventQueue;
-
-import entity.TipoElemento;
-import controlers.CtrlABMCTipoElemento;
-import util.ApplicationException;
-
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controlers.*;
+import entity.*;
+import util.*;
+
+
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -31,20 +31,17 @@ import javax.swing.JComboBox;
 public class ABMCTipoElementoDesktop extends JInternalFrame {
 	private CtrlABMCTipoElemento ctrl=new CtrlABMCTipoElemento();
 	
-	
-	//private JButton btnBuscar;
+	private JPanel contentPane;
+	private JTextField txtID;
+	private JTextField txtNombreTe;
+	private JTextField txtCantReservaMax;
+	private JTextField txtTiempoLimite;
+	private JTextField txtDiasAnticipacion;
 	private JButton btnAgregar;
 	private JButton btnModificar;
-	private JButton btnBorrar;
-	private JTextField txtCantMaxReserva;
-	private JTextField txtDiasAnticipacion;
-	private JTextField txtTiempoLimite;
-	private JTextField txtNombre_TE;
-	private JTextField txtId;
-	private JFrame frame;
-	private JPanel contentPane;
+	private JButton btnEliminar;
 	private JButton btnBuscar;
-	//private JButton btnBuscar_1;
+	private JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -66,50 +63,39 @@ public class ABMCTipoElementoDesktop extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ABMCTipoElementoDesktop() {
-		setMaximizable(true);
-		setClosable(true);
 		setBounds(100, 100, 450, 300);
 		
-		JLabel lblId = new JLabel("ID ");
+		JLabel lblId = new JLabel("ID");
 		
-		txtId = new JTextField();
-		txtId.setEditable(false);
-		txtId.setColumns(10);
+		txtID = new JTextField();
+		txtID.setEditable(false);
+		txtID.setColumns(10);
 		
-		JLabel lblTipoElemento = new JLabel("Tipo Elemento ");
+		JLabel lblTipoelemento = new JLabel("TipoElemento");
 		
-		JLabel lblTiempoLimite = new JLabel("Tiempo Limite ");
+		txtNombreTe = new JTextField();
+		txtNombreTe.setColumns(10);
 		
-		txtNombre_TE = new JTextField();
-		txtNombre_TE.setColumns(10);
+		JLabel lblCantReservaMax = new JLabel("Cant reserva max");
+		
+		txtCantReservaMax = new JTextField();
+		txtCantReservaMax.setColumns(10);
+		
+		JLabel lblTiempoLimite = new JLabel("Tiempo Limite");
 		
 		txtTiempoLimite = new JTextField();
 		txtTiempoLimite.setColumns(10);
 		
-		JLabel lblDias = new JLabel("Dias Anticipacion");
+		JLabel lblDiasAnticipacion = new JLabel("Dias anticipacion");
 		
 		txtDiasAnticipacion = new JTextField();
 		txtDiasAnticipacion.setColumns(10);
 		
-		txtCantMaxReserva = new JTextField();
-		txtCantMaxReserva.setColumns(10);
-		
-		JLabel lblCantreservamax = new JLabel("Cant_reserva_max");
-		
-	
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				agregarClick();
-			}
-		});
-		
-		btnBorrar = new JButton("Borrar");
-		btnBorrar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				borrarClick();
 			}
 		});
 		
@@ -120,94 +106,92 @@ public class ABMCTipoElementoDesktop extends JInternalFrame {
 				modificarClick();
 			}
 		});
-	
-	/*	JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addMouseListener(new MouseAdapter() {
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				buscarClick();
+				borrarClick();
 			}
-		});*/
+		});
 		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent e) {
 				buscarClick();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addGap(38)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblTiempoLimite)
-								.addComponent(lblTipoElemento)
-								.addComponent(lblId)
-								.addComponent(lblDias)
-								.addComponent(lblCantreservamax))
-							.addGap(67)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtDiasAnticipacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtTiempoLimite, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(txtNombre_TE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblDiasAnticipacion)
 									.addGap(18)
-									.addComponent(btnBuscar))
-								.addComponent(txtCantMaxReserva, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+									.addComponent(txtDiasAnticipacion))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblCantReservaMax)
+										.addComponent(lblTiempoLimite)
+										.addComponent(lblTipoelemento)
+										.addComponent(lblId))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(txtTiempoLimite)
+										.addComponent(txtCantReservaMax)
+										.addComponent(txtNombreTe, Alignment.TRAILING)
+										.addComponent(txtID, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))))
+							.addGap(71)
+							.addComponent(btnBuscar))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
+							.addGap(53)
 							.addComponent(btnAgregar)
-							.addGap(39)
+							.addGap(57)
 							.addComponent(btnModificar)
-							.addGap(43)
-							.addComponent(btnBorrar)))
-					.addContainerGap(44, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+							.addComponent(btnEliminar)))
+					.addGap(31))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(22)
+					.addGap(26)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblId)
+						.addComponent(txtID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblTipoElemento)
-						.addComponent(txtNombre_TE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblTipoelemento)
+						.addComponent(txtNombreTe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnBuscar))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblCantReservaMax)
+						.addComponent(txtCantReservaMax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTiempoLimite)
 						.addComponent(txtTiempoLimite, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(31)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDias)
+						.addComponent(lblDiasAnticipacion)
 						.addComponent(txtDiasAnticipacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtCantMaxReserva, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblCantreservamax))
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAgregar)
 						.addComponent(btnModificar)
-						.addComponent(btnBorrar))
-					.addContainerGap(46, Short.MAX_VALUE))
+						.addComponent(btnEliminar))
+					.addGap(39))
 		);
 		getContentPane().setLayout(groupLayout);
-		cargarListas();
+
 	}
-	private void cargarListas() {
-		try {
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getMessage());
-		}
-	}
+	
 	protected void buscarClick() {
 		try {
 			this.mapearAForm(ctrl.getByNombre(this.mapearDeForm()));
@@ -216,79 +200,83 @@ public class ABMCTipoElementoDesktop extends JInternalFrame {
 		}
 		
 	}
-
+	
 	protected void agregarClick() {
 		TipoElemento te = this.mapearDeForm();
 		try{
+			
 			ctrl.add(te);
-			this.txtId.setText(String.valueOf(te.getId_TE()));
-			notificar("Tipo de elemento  creado con exito ");
-			mapearDeForm();
-			limpiarCampos();
+			this.txtID.setText(String.valueOf(te.getId_TE()));
+			notificar("Elemento creada con exito ");
+			mapearDeForm();		
+			this.limpiarCampos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
-		
+		//this.txtId.setText(String.valueOf(el.getId_El()));
 	}
+
 	
 	protected void borrarClick(){
 		try{
-			TipoElemento te  = mapearDeForm();
-			ctrl.delete(te); 
-		    notificar(" Tipo Elemento eliminado con exito");
+			TipoElemento te = mapearDeForm();	
+			ctrl.delete(te); //lo envio a la capa logica elemento para que haga el delete
+		    notificar("Elemento eliminada con exito");
 		    this.limpiarCampos();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getMessage());
-		}
-	}
-	
-	protected void modificarClick(){
-		try{
-			TipoElemento te  = mapearDeForm();
-			mapearAForm(te);
-			ctrl.update(te);
-			notificar("Tipo Elemento modificado con exito");
+			ctrl.delete(this.mapearDeForm());
 			this.limpiarCampos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
+
+	protected void modificarClick(){
+		try{
+			TipoElemento te = mapearDeForm();
+			mapearAForm(te);
+			ctrl.update(te);
+			notificar("Elemento modificado con exito");
+			this.limpiarCampos();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
+	}
+
 	
 	private void mapearAForm(TipoElemento te){
-		//this.cboElemento.setSelectedItem(te.getElemento());
-		this.txtNombre_TE.setText(te.getNombre_TE());
+		this.txtID.setText(String.valueOf(te.getId_TE()));
+		this.txtNombreTe.setText(te.getNombre_TE());
+		this.txtCantReservaMax.setText(String.valueOf(te.getCant_reserva_max()));    
 		this.txtTiempoLimite.setText(String.valueOf(te.getTiempo_limite()));
 		this.txtDiasAnticipacion.setText(String.valueOf(te.getDias_anticipacion()));
-		this.txtCantMaxReserva.setText(String.valueOf(te.getCant_reserva_max()));
 	}
 	
 	private TipoElemento mapearDeForm(){
 		TipoElemento te=new TipoElemento();
-		if(!this.txtId.getText().isEmpty()){
-			te.setId_TE(Integer.parseInt(this.txtId.getText()));
-		}
-		te.setNombre_TE(this.txtNombre_TE.getText());
+		if(!this.txtID.getText().isEmpty()){
+			te.setId_TE(Integer.parseInt(this.txtID.getText()));
+		}	
+		te.setNombre_TE(this.txtNombreTe.getText());
+		te.setCant_reserva_max(Integer.parseInt(this.txtCantReservaMax.getText()));
 		te.setTiempo_limite(Integer.parseInt(this.txtTiempoLimite.getText()));
-		te.setDias_anticipacion(Integer.parseInt(this.txtDiasAnticipacion.getText()));
-		te.setCant_reserva_max(Integer.parseInt(this.txtCantMaxReserva.getText()));
-	
+		te.setDias_anticipacion(Integer.parseInt(this.txtTiempoLimite.getText()));
+		
 		return te;
+
 	}
 	
-	public void showPersona(TipoElemento te){
+	public void showTipoElemento(TipoElemento te){
 		this.mapearAForm(te);
 	}
+	
 	private void limpiarCampos(){
-		
-		
-		this.txtNombre_TE.setText("");
+		this.txtNombreTe.setText("");
+		this.txtCantReservaMax.setText("");
 		this.txtTiempoLimite.setText("");
 		this.txtDiasAnticipacion.setText("");
-		this.txtCantMaxReserva.setText("");
-		
 	}
 	public void notificar(String mensaje) {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
 	}
-	}
-
+}
