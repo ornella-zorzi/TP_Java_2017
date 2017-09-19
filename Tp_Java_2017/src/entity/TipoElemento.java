@@ -7,15 +7,7 @@ public class TipoElemento  {
 	private int  cant_reserva_max;
 	private int tiempo_limite;
 	private int dias_anticipacion;
-	private Elemento elemento;
-	
 
-	public Elemento getElemento() {
-		return elemento;
-	}
-	public void setElemento(Elemento elemento) {
-		this.elemento = elemento;
-	}
 	public int getId_TE() {
 		return id_TE;
 	}
@@ -46,7 +38,7 @@ public class TipoElemento  {
 	public void setDias_anticipacion(int dias_anticipacion) {
 		this.dias_anticipacion = dias_anticipacion;
 	}
-	public TipoElemento(int id_El, String nombre_El, int id_TE,
+	public TipoElemento( int id_TE,
 			String nombre_TE, int cant_reserva_max, int tiempo_limite,
 			int dias_anticipacion) {
 		this.id_TE = id_TE;
@@ -60,14 +52,27 @@ public class TipoElemento  {
 	 
  }
 	
-	@Override
+/*	@Override
 	public boolean equals(Object te){
 		return (te instanceof TipoElemento) &&
 			 (((TipoElemento)te).getNombre_TE().equals(this.getNombre_TE()));
 					
 
+	}*/
+	@Override
+	public String toString(){
+		return this.getNombre_TE();
 	}
-
+	
+	@Override
+	public boolean equals(Object o){
+		return (o instanceof TipoElemento && ((TipoElemento)o).getId_TE()==this.getId_TE());
+	}
+	
+	@Override
+	public int hashCode(){
+		return ((Integer)this.getId_TE()).hashCode();
+	}
 
 	
 }

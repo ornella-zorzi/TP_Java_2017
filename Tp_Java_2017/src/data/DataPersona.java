@@ -142,7 +142,7 @@ public ResultSet getResultSet() throws ApplicationException{
 
 
 public void update(Persona p){
-	ResultSet rs=null;
+	//ResultSet rs=null;
 	PreparedStatement stmt=null;	
 	try {
 		stmt= FactoryConexion.getInstancia().getConn().prepareStatement(

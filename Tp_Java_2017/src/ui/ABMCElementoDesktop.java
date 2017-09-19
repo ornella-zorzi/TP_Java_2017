@@ -6,10 +6,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controlers.CtrlABMCElemento;
-import entity.Elemento;
-import entity.Persona;
-import entity.TipoElemento;
+import controlers.*;
+import entity.*;
+import util.*;
+
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -36,9 +36,13 @@ public class ABMCElementoDesktop extends JInternalFrame {
 	private JTextField txtId;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
-	private JButton btnModificar;
+	//private JButton btnModificar;
 	private JButton btnBuscar;
 	private JFrame frame;
+	private JLabel lblTipoElemento;
+	private JComboBox cboTipoElemento;
+	private JButton btnModificar;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -66,6 +70,8 @@ public class ABMCElementoDesktop extends JInternalFrame {
 		JLabel lblId = new JLabel("ID");
 		
 		JLabel lblNombre = new JLabel("Nombre");
+		lblTipoElemento = new JLabel("Tipo Elemento");
+		cboTipoElemento = new JComboBox();
 		
 		txtId = new JTextField();
 		txtId.setEditable(false);
@@ -107,35 +113,56 @@ public class ABMCElementoDesktop extends JInternalFrame {
 				buscarClick();
 			}
 		});
+	/*	
+		btnModificar_1 = new JButton("Modificar");
+		btnModificar_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
+		*/
+	
+		
+	
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(78)
-					.addComponent(btnAgregar)
-					.addGap(47)
-					.addComponent(btnBorrar)
-					.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-					.addComponent(btnModificar)
-					.addGap(40))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(43)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblId)
-						.addComponent(lblNombre))
-					.addGap(33)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-							.addComponent(btnBuscar)
-							.addGap(59))
+							.addGap(43)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblTipoElemento)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblId)
+										.addComponent(lblNombre))
+									.addGap(33)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(btnBuscar)
+											.addGap(59))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 71, Short.MAX_VALUE)))))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(cboTipoElemento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(13)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(235, Short.MAX_VALUE))))
-		);
+							.addGap(78)
+							.addComponent(btnAgregar)
+							.addGap(47)
+							.addComponent(btnBorrar)
+							.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+							.addComponent(btnModificar)
+							.addGap(38)))));
+					//.addComponent(btnModificar)
+				//	.addGap(40);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(49)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
@@ -146,15 +173,31 @@ public class ABMCElementoDesktop extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNombre)
 						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblTipoElemento)
+						.addComponent(cboTipoElemento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(37)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAgregar)
 						.addComponent(btnBorrar)
 						.addComponent(btnModificar))
-					.addGap(44))
-		);
+						//.addComponent(btnModificar_1))
+					.addGap(44)));
 		getContentPane().setLayout(groupLayout);
+		
+		cargarListas(); 
 
+	}
+
+
+	private void cargarListas() {
+		try { 
+			this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getTipoElemento().toArray()));
+			this.cboTipoElemento.setSelectedIndex(-1);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
 	}
 	protected void buscarClick() {
 		try {
@@ -172,14 +215,12 @@ public class ABMCElementoDesktop extends JInternalFrame {
 			ctrl.add(el);
 			this.txtId.setText(String.valueOf(el.getId_El()));
 			notificar("Elemento creada con exito ");
-			mapearDeForm();
-			
+			mapearDeForm();		
 			this.limpiarCampos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 		//this.txtId.setText(String.valueOf(el.getId_El()));
-		
 	}
 
 	
@@ -195,7 +236,7 @@ public class ABMCElementoDesktop extends JInternalFrame {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
-	
+
 	protected void modificarClick(){
 		try{
 			Elemento el = mapearDeForm();
@@ -213,15 +254,20 @@ public class ABMCElementoDesktop extends JInternalFrame {
 	private void mapearAForm(Elemento el){
 		this.txtId.setText(String.valueOf(el.getId_El()));
 		this.txtNombre.setText(el.getNombre_El());
+		this.cboTipoElemento.setSelectedItem(el.getTipoElemento());    
 	}
 	
 	private Elemento mapearDeForm(){
 		Elemento el=new Elemento();
 		if(!this.txtId.getText().isEmpty()){
 			el.setId_El(Integer.parseInt(this.txtId.getText()));
-		}
+		}	
 		el.setNombre_El(this.txtNombre.getText());
+		if (cboTipoElemento.getSelectedIndex()!= -1){
+			el.setTipoElemento((TipoElemento)this.cboTipoElemento.getSelectedItem());
+		}
 		return el;
+
 	}
 	
 	public void showElemento(Elemento el){

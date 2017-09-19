@@ -14,12 +14,15 @@ public class DataElemento {
 		ArrayList<Elemento> elems = new ArrayList<Elemento>();
 		try{ 
 			stmt = FactoryConexion.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("Select  *  from elemento");
+			rs = stmt.executeQuery("Select  *  from elemento inner join tipo_elemento  on tipo_elemento.id_el=elemento.id_el");
 			if (rs!= null ){
 				while(rs.next()){
 					Elemento el = new Elemento();
-					el.setId_El(rs.getInt("id_el"));
-					el.setNombre_El(rs.getString("nombre_el"));
+				    el.setTipoElemento(new TipoElemento());
+				    el.setId_El(rs.getInt("id_el"));
+				    el.setNombre_El(rs.getString("nombre_el"));
+				    el.getTipoElemento().setId_TE(rs.getInt("id_te"));
+				    el.getTipoElemento().setNombre_TE(rs.getString("nombre_te"));
 					elems.add(el);
 						
 				}
@@ -45,13 +48,16 @@ public class DataElemento {
     	PreparedStatement stmt= null;
     	ResultSet rs=null;
     	try {
-    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select e.id_el, e.nombre_el from elemento e where e.nombre_el=? ");
+    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select e.id_el,e.nombre_el,e.id_te,te.nombre_te from elemento e inner join tipo_elemento te on e.id_te=te.id_te  where e.nombre_el=? ");
     		 stmt.setString(1, el.getNombre_El());
     		 rs=stmt.executeQuery();
     		 if(rs!=null && rs.next()){
     			 e=new Elemento();
+    			 e.setTipoElemento(new TipoElemento());
     			 e.setId_El(rs.getInt("id_el"));
-					e.setNombre_El(rs.getString("nombre_el"));
+				 e.setNombre_El(rs.getString("nombre_el"));
+				 e.getTipoElemento().setId_TE(rs.getInt("id_te"));
+				 e.getTipoElemento().setNombre_TE(rs.getString("nombre_te"));	
     		 }
     		 
     	} catch (Exception ex ){
@@ -72,9 +78,10 @@ public class DataElemento {
     	PreparedStatement stmt=null;
     	ResultSet keyResultSet=null;
     	try{ stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-				"insert into elemento(nombre_el) " +
-				 "values (?)",PreparedStatement.RETURN_GENERATED_KEYS);
+				"insert into elemento(nombre_el,id_te) " +
+				 "values (?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
     		  stmt.setString(1,el.getNombre_El());
+    		  stmt.setInt(2,el.getTipoElemento().getId_TE());
     		  stmt.executeUpdate();
     		  keyResultSet=stmt.getGeneratedKeys();
     		  if (keyResultSet!=null && keyResultSet.next()){
@@ -100,7 +107,7 @@ public ResultSet getResultSet() throws ApplicationException{
 		try
 		{
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"SELECT id_el, nombre_el FROM elemento where nombre_el=?");			
+					"SELECT id_el, nombre_el,id_te FROM elemento inner join tipo_elemeto on tipo_elemento.id_el=elemento.id_el where nombre_el=?");			
 			rs = stmt.executeQuery();
 			
 		} catch (SQLException e) {
@@ -121,10 +128,10 @@ public void update(Elemento el){
 	PreparedStatement stmt=null;	
 	try {
 		stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-				"UPDATE Elemento SET nombre_el=? WHERE id_el=?");	
-		
+				"UPDATE Elemento SET nombre_el=?, id_te=? WHERE id_el=?");		
 		  stmt.setString(1,el.getNombre_El());
-		  stmt.setInt(2, el.getId_El());
+		  stmt.setInt(2,el.getTipoElemento().getId_TE());
+		  stmt.setInt(3, el.getId_El());
 		  
 		  stmt.execute();
 		

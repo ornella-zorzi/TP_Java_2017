@@ -1,22 +1,18 @@
 package controlers;
 import java.util.ArrayList;
-
 import data.DataTipoElemento;
-import data.DataElemento;
-import entity.Persona;
 import entity.TipoElemento;
-import entity.Elemento;
+
 
 
 public class CtrlABMCTipoElemento {
-	private DataElemento dataEl;
+	
 	private DataTipoElemento dataTipoEl;	
 	private ArrayList<TipoElemento> tipoEl ;
 
 	public CtrlABMCTipoElemento(){
 		
 		dataTipoEl = new DataTipoElemento();
-		dataEl = new DataElemento();
 		tipoEl = new ArrayList<TipoElemento>();		
 	}
 
@@ -36,10 +32,7 @@ public class CtrlABMCTipoElemento {
 		return dataTipoEl.getAll();
 		
 	}
-	public ArrayList<Elemento> getElemento() throws Exception{
-		return dataEl.getAll();
-		
-	}
+
 	public TipoElemento getByNombre(TipoElemento te)throws Exception {
 		//return this.pers.get(this.pers.indexOf(p));
 		return dataTipoEl.getByNombre(te);
@@ -48,8 +41,9 @@ public class CtrlABMCTipoElemento {
 	public TipoElemento getByNombre(String nombre_TE) throws Exception {
 		TipoElemento te= new TipoElemento();
 		te.setNombre_TE(nombre_TE);
-		return getByNombre (te);
+		return getByNombre(te);
 	}
+	
 
 	
 }
