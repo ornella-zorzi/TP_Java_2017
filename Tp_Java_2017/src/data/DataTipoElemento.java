@@ -46,7 +46,7 @@ public class DataTipoElemento {
 	    	PreparedStatement stmt= null;
 	    	ResultSet rs=null;
 	    	try {
-	    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select te.id_te, te.nombre_te, te.cant_reserva_max, te.tiempo_limite, te.dias_anticipacion from tipo_elemento te where te.nombre_te=? ");
+	    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select * from tipo_elemento  where nombre_te=?");
 	    		stmt.setString(1, tel.getNombre_TE());
 	    		 rs=stmt.executeQuery();
 	    		 if(rs!=null && rs.next()){

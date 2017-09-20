@@ -63,6 +63,8 @@ public class ABMCTipoElementoDesktop extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ABMCTipoElementoDesktop() {
+		setMaximizable(true);
+		setClosable(true);
 		setBounds(100, 100, 450, 300);
 		
 		JLabel lblId = new JLabel("ID");
