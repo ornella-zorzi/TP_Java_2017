@@ -5,13 +5,27 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 
+import controlers.CtrlABMCElemento;
+import controlers.CtrlABMCReserva;
+import controlers.CtrlABMCTipoElemento;
+import entity.*;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class ABMCReservaDesktop extends JInternalFrame {
+	private CtrlABMCReserva ctrl=new CtrlABMCReserva();
+	
 	private JTextField txtID;
 	private JButton btnBuscar;
 	private JTextField txtDni;
@@ -22,6 +36,8 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	private JButton btnAgregar;
 	private JButton btnModificar;
 	private JButton btnBorrar;
+	private JComboBox cboTipoElemento;
+	private JComboBox cboElemento;
 
 	/**
 	 * Launch the application.
@@ -53,11 +69,11 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		txtID.setEditable(false);
 		txtID.setColumns(10);
 		
-		btnBuscar = new JButton("Buscar");
+	
 		
-		JComboBox cboTipoElemento = new JComboBox();
+		cboTipoElemento = new JComboBox();
 		
-		JComboBox cboElemento = new JComboBox();
+		cboElemento = new JComboBox();
 		
 		JLabel lblTipo_elemento = new JLabel("Tipo Elemento");
 		
@@ -88,11 +104,35 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		txtEstado = new JTextField();
 		txtEstado.setColumns(10);
 		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			//	buscarClick();
+			}
+		});
+		
 		btnAgregar = new JButton("Agregar");
+		btnAgregar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				agregarClick();
+			}
+		});
 		
 		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				modificarClick();
+			}
+		});
 		
 		btnBorrar = new JButton("Borrar");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				borrarClick();
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -202,7 +242,107 @@ public class ABMCReservaDesktop extends JInternalFrame {
 					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);
+		cargarListas();
 
 	}
+	private void cargarListas() {
+		try {
+			this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray()));
+			this.cboElemento.setSelectedIndex(-1);
+		//	this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray());
+		//	this.cboTipoElemento.setSelectedIndex(-1);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
+	}
 
+	/*protected void buscarClick() {
+		try {
+			this.mapearAForm(ctrl.getByDni(this.mapearDeForm()));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
+		
+	}
+	*/
+	protected void agregarClick() {
+		Reserva r = this.mapearDeForm();
+		try{
+			ctrl.add(r);
+			this.txtID.setText(String.valueOf(r.getId_res()));
+			notificar("Reserva creada con exito ");
+			mapearDeForm();
+			limpiarCampos();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
+		//this.txtId.setText(String.valueOf(p.getId_per()));
+	}
+	
+	protected void borrarClick(){
+		try{
+			Reserva r = mapearDeForm();
+			ctrl.delete(r); //lo envio a la capa logica el persona para que haga el delete
+		    notificar("Reserva eliminada con exito");
+		    this.limpiarCampos();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
+	}
+	
+	protected void modificarClick(){
+		try{
+			Reserva r = mapearDeForm();
+			mapearAForm(r);
+			ctrl.update(r);
+			notificar("Reserva modificado con exito");
+			this.limpiarCampos();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
+	}
+	
+	private void mapearAForm(Reserva r){
+		this.txtID.setText(String.valueOf(r.getId_res()));
+		this.cboElemento.setSelectedItem(r.getElemento());
+		this.txtFecha.setd(r.getFecha());
+		this.txtHora.set(r.getHora());
+		
+	}
+	
+	private Persona mapearDeForm(){
+		Persona p=new Persona();
+		if(!this.txtId.getText().isEmpty()){
+			p.setId_per(Integer.parseInt(this.txtId.getText()));
+		}
+		p.setDni(this.txtDni.getText());
+		p.setNombre(this.txtNombre.getText());
+		p.setApellido(this.txtApellido.getText());
+		p.setEmail(this.txtEmail.getText());
+		p.setUsuario(this.txtUsuario.getText());
+		p.setContraseña(this.txtContraseña.getText());
+		p.setHabilitado(this.chckbxHabilitado.isSelected());
+		if (comboBox.getSelectedIndex() != -1){
+			p.setCategoria((Categoria)this.comboBox.getSelectedItem());
+		}
+		return p;
+	}
+	
+	public void showPersona(Persona p){
+		this.mapearAForm(p);
+	}
+	private void limpiarCampos(){
+		
+		this.txtDni.setText("");
+		this.txtNombre.setText("");
+		this.txtApellido.setText("");
+		this.txtEmail.setText("");
+		//this.comboBox.setEditor(anEditor);
+		this.txtUsuario.setText("");
+		this.txtContraseña.setText("");
+		
+	}
+	public void notificar(String mensaje) {
+		JOptionPane.showMessageDialog(this.frame, mensaje);
+	}
 }

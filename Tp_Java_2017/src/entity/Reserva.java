@@ -8,20 +8,29 @@ public class Reserva {
 	private String estado;
 	private String detalle;
 	private Persona persona;
-	private TipoElemento tipoelemento;
+	private Elemento elemento;
+	private int id_res;
 	
+	
+	public Elemento getElemento() {
+		return elemento;
+	}
+	public int getId_res() {
+		return id_res;
+	}
+	public void setId_res(int id_res) {
+		this.id_res = id_res;
+	}
+	public void setElemento(Elemento elemento) {
+		this.elemento = elemento;
+	}
 	public Persona getPersona() {
 		return persona;
 	}
 	public void setPersona(Persona persona) {
 		this.persona = persona;
 	}
-	public TipoElemento getTipoelemento() {
-		return tipoelemento;
-	}
-	public void setTipoelemento(TipoElemento tipoelemento) {
-		this.tipoelemento = tipoelemento;
-	}
+	
 	
 	
 	public String getDetalle() {
