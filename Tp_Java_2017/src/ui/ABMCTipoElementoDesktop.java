@@ -27,9 +27,16 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
+import org.jdesktop.beansbinding.BeanProperty;
+import org.jdesktop.beansbinding.AutoBinding;
+import org.jdesktop.beansbinding.Bindings;
+import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 
 public class ABMCTipoElementoDesktop extends JInternalFrame {
+	private AutoBinding<TipoElemento, TipoElemento, JComboBox, Object> cbo;
+
 	private CtrlABMCTipoElemento ctrl=new CtrlABMCTipoElemento();
+	private TipoElemento currentTel=new TipoElemento();
 	
 	private JPanel contentPane;
 	private JTextField txtID;
@@ -63,6 +70,9 @@ public class ABMCTipoElementoDesktop extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ABMCTipoElementoDesktop() {
+		setIconifiable(true);
+		setTitle("ABMCTipoElemento");
+		setResizable(true);
 		setMaximizable(true);
 		setClosable(true);
 		setBounds(100, 100, 450, 300);

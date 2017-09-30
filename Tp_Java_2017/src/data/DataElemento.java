@@ -14,7 +14,7 @@ public class DataElemento {
 		ArrayList<Elemento> elems = new ArrayList<Elemento>();
 		try{ 
 			stmt = FactoryConexion.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("Select  *  from elemento inner join tipo_elemento  on tipo_elemento.id_el=elemento.id_el");
+			rs = stmt.executeQuery("Select  *  from elemento inner join tipo_elemento  on tipo_elemento.id_te=elemento.id_te");
 			if (rs!= null ){
 				while(rs.next()){
 					Elemento el = new Elemento();

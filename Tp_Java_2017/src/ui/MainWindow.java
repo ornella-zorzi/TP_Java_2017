@@ -14,7 +14,7 @@ import java.awt.BorderLayout;
 
 public class MainWindow {
 
-	private JFrame frame;
+	private JFrame frmGestionDeReservas;
 	private JDesktopPane desktopPane;
 
 	/**
@@ -25,7 +25,7 @@ public class MainWindow {
 			public void run() {
 				try {
 					MainWindow window = new MainWindow();
-					window.frame.setVisible(true);
+					window.frmGestionDeReservas.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,15 +44,16 @@ public class MainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmGestionDeReservas = new JFrame();
+		frmGestionDeReservas.setTitle("Gestion de Reservas");
+		frmGestionDeReservas.setBounds(100, 100, 450, 300);
+		frmGestionDeReservas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		desktopPane = new JDesktopPane();
-		frame.getContentPane().add(desktopPane, BorderLayout.CENTER);
+		frmGestionDeReservas.getContentPane().add(desktopPane, BorderLayout.CENTER);
 		
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		frmGestionDeReservas.setJMenuBar(menuBar);
 		
 		JMenu mnPersona = new JMenu("Persona");
 		menuBar.add(mnPersona);
@@ -65,6 +66,14 @@ public class MainWindow {
 		});
 		mnPersona.add(mntmAbmcpersona);
 		
+		JMenuItem mntmListadopersonas = new JMenuItem("ListadoPersonas");
+		mntmListadopersonas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mnuListadoPersonaClick();
+			}
+		});
+		mnPersona.add(mntmListadopersonas);
+		
 		JMenu mnElemento = new JMenu("Elemento");
 		menuBar.add(mnElemento);
 		
@@ -76,13 +85,32 @@ public class MainWindow {
 		});
 		mnElemento.add(mntmAbmcelemento);
 		
-		JMenuItem mntmAbmctipoelemento = new JMenuItem("ABMCTipoElemento");
+		JMenuItem mntmListadoElementos = new JMenuItem("Listado Elementos");
+		mntmListadoElementos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mnuListadoElementoClick();
+			}
+		});
+		mnElemento.add(mntmListadoElementos);
+		
+		JMenu mnTipoElemento = new JMenu("Tipo Elemento");
+		menuBar.add(mnTipoElemento);
+		
+		JMenuItem mntmAbmctipoelemento= new JMenuItem("ABMCTipoElemento");
 		mntmAbmctipoelemento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mnuABMCTipoElementoClick();
 			}
 		});
-		mnElemento.add(mntmAbmctipoelemento);
+		mnTipoElemento.add(mntmAbmctipoelemento);
+		
+		JMenuItem mntmListadoTipoElementos = new JMenuItem("Listado Tipo Elementos");
+		mntmListadoTipoElementos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mnuListadoTipoElementoClick();
+			}
+		});
+		mnTipoElemento.add(mntmListadoTipoElementos);
 	}
 	protected void mnuABMCPersonaClick() {
 		ABMCPersonaDesktop pd= new ABMCPersonaDesktop();
@@ -93,6 +121,21 @@ public class MainWindow {
 		ABMCElementoDesktop ed= new ABMCElementoDesktop();
 		desktopPane.add(ed);
 		ed.setVisible(true);
+	}
+	protected void mnuListadoPersonaClick() {
+		ListadoPersonas lp= new ListadoPersonas();
+		desktopPane.add(lp);
+		lp.setVisible(true);
+	}
+	protected void mnuListadoTipoElementoClick() {
+		ListadoTipoElementos lte= new ListadoTipoElementos();
+		desktopPane.add(lte);
+		lte.setVisible(true);
+	}
+	protected void mnuListadoElementoClick() {
+		ListadoElementos le= new ListadoElementos();
+		desktopPane.add(le);
+		le.setVisible(true);
 	}
 	protected void mnuABMCTipoElementoClick() {
 		ABMCTipoElementoDesktop ted= new ABMCTipoElementoDesktop();

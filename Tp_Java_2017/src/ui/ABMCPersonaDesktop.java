@@ -23,11 +23,16 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import util.ApplicationException;
+import org.jdesktop.beansbinding.BeanProperty;
+import org.jdesktop.beansbinding.AutoBinding;
+import org.jdesktop.beansbinding.Bindings;
+import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 
 public class ABMCPersonaDesktop extends JInternalFrame {
-	
+	private AutoBinding<Persona, Categoria, JComboBox, Object> cbo;
+
 	private CtrlABMCPersona ctrl=new CtrlABMCPersona();
-	
+	private Persona currentPer=new Persona();
 	private JPanel contentPane;
 	private JTextField txtId;
 	private JTextField txtDni;
@@ -64,6 +69,9 @@ public class ABMCPersonaDesktop extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public ABMCPersonaDesktop() {
+		setIconifiable(true);
+		setTitle("ABMCPersona");
+		setResizable(true);
 		setMaximizable(true);
 		setClosable(true);
 		setBounds(100, 100, 392, 410);
