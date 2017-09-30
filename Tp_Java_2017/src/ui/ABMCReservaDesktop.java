@@ -1,4 +1,4 @@
-package ui;
+/*package ui;
 
 import java.awt.EventQueue;
 
@@ -42,7 +42,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -58,7 +58,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ABMCReservaDesktop() {
+/*	public ABMCReservaDesktop() {
 		setMaximizable(true);
 		setClosable(true);
 		setBounds(100, 100, 499, 375);
@@ -265,7 +265,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		
 	}
 	*/
-	protected void agregarClick() {
+/*	protected void agregarClick() {
 		Reserva r = this.mapearDeForm();
 		try{
 			ctrl.add(r);
@@ -346,3 +346,4 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
 	}
 }
+*/
