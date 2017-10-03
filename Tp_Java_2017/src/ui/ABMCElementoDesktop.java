@@ -34,6 +34,7 @@ import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 
 public class ABMCElementoDesktop extends JInternalFrame {
 	private AutoBinding<Elemento, TipoElemento, JComboBox, Object> cbo;
+	
 	private CtrlABMCElemento ctrl=new CtrlABMCElemento();
 	private Elemento currentEle=new Elemento();
 	private JPanel contentPane;

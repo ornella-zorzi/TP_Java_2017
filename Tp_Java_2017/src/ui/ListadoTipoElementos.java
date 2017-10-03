@@ -95,7 +95,7 @@ public class ListadoTipoElementos extends JInternalFrame {
 	protected void initDataBindings() {
 		JTableBinding<TipoElemento, List<TipoElemento>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, tels, table);
 		//
-		BeanProperty<TipoElemento, String> TipoElementoBeanProperty = BeanProperty.create("nombre_te");
+		BeanProperty<TipoElemento, String> TipoElementoBeanProperty = BeanProperty.create("nombre_TE");
 		jTableBinding.addColumnBinding(TipoElementoBeanProperty).setColumnName("Nombre").setEditable(false);
 		//
 		BeanProperty<TipoElemento, Integer> TipoElementoBeanProperty_1 = BeanProperty.create("cant_reserva_max");

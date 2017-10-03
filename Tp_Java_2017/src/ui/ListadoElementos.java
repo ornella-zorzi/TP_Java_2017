@@ -12,6 +12,7 @@ import javax.swing.JTable;
 
 import controlers.CtrlABMCElemento;
 import entity.Elemento;
+import entity.Persona;
 import entity.TipoElemento;
 
 import java.awt.Color;
@@ -96,13 +97,13 @@ public class ListadoElementos extends JInternalFrame {
 	protected void initDataBindings() {
 		JTableBinding<Elemento, List<Elemento>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, elems, table);
 		//
-		BeanProperty<Elemento, String> elementoBeanProperty = BeanProperty.create("nombre_el");
-		jTableBinding.addColumnBinding(elementoBeanProperty).setColumnName("nombre").setEditable(false);
+		BeanProperty<Elemento, String> elementoBeanProperty = BeanProperty.create("nombre_El");
+		jTableBinding.addColumnBinding(elementoBeanProperty).setColumnName("Nombre").setEditable(false);
 		//
-	
-		BeanProperty<Elemento, String> elementoBeanProperty_1 = BeanProperty.create("tipo_elemento.nombre_te");
-		jTableBinding.addColumnBinding(elementoBeanProperty_1).setColumnName("TipoElemento").setEditable(false);
+		BeanProperty<Elemento, String> elementoBeanProperty_1 = BeanProperty.create("tipoElemento.nombre_TE");
+		jTableBinding.addColumnBinding(elementoBeanProperty_1).setColumnName("Nombre te").setEditable(false);
 		//
+		
 		jTableBinding.setEditable(false);
 		jTableBinding.bind();
 	}
