@@ -244,7 +244,40 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	}
 	
 	protected void buscarClick() {
+	 /* private void buscarClick() {
+
+		 try {
+			 btnAceptar.setEnabled(true);
+			 int validar=this.ctrl.validarBotonBuscar(cboTipos.getSelectedIndex(), txtFecha.getText(), txtHora.getText());
+			 if (validar==1)
+			 	{
+			 		JOptionPane.showMessageDialog(this, "Seleccione un Tipo de Elemento");  
+			 		this.cboElementos.setEnabled(true);
+			 		 }
+			 else if(validar==2)
+			 	 {
+			 		JOptionPane.showMessageDialog(this, "Verifique hora y fecha");  
+			 		this.cboElementos.setEnabled(true);
+			 	 }
+			 else if(validar==3)
+			 {
+				 Tipo_Elemento te=new Tipo_Elemento();
+				 if (cboTipos.getSelectedIndex() != -1){
+					 te=(Tipo_Elemento)cboTipos.getSelectedItem();
+					 java.sql.Date fecha = convertirFecha(this.txtFecha.getText());
+					 java.sql.Time hora = convertirHora(this.txtHora.getText());
+ 						 
+					 this.cboElementos.setModel(new DefaultComboBoxModel<Object>(this.ctrl.getElemDisponibles(fecha, hora, ctrl.getElementos(te)).toArray()));
+					 this.cboElementos.setSelectedIndex(-1);
+					 this.cboElementos.setEnabled(true);
 	
+		 }}}
+
+		 catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Error recuperando Elementos","Error",JOptionPane.ERROR_MESSAGE);
+	 		
+		}
+		 }*/
 		/*try {
 			this.mapearAForm(ctrl.getByNombre(this.mapearDeForm()));
 		} catch (Exception e) {
