@@ -107,7 +107,7 @@ public ResultSet getResultSet() throws ApplicationException{
 		try
 		{
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"SELECT id_el, nombre_el,id_te FROM elemento inner join tipo_elemeto on tipo_elemento.id_el=elemento.id_el where nombre_el=?");			
+					"SELECT id_el, nombre_el,id_te FROM elemento inner join tipo_elemento on tipo_elemento.id_te=elemento.id_te where nombre_el=?");			
 			rs = stmt.executeQuery();
 			
 		} catch (SQLException e) {
