@@ -1,4 +1,4 @@
-/*package data;
+package data;
 import entity.*;
 import util.ApplicationException;
 
@@ -48,7 +48,7 @@ public class DataReserva {
 		
 	} 
 
-   /* public Persona getByDni(Persona per) throws Exception{
+   public Persona getByDni(Persona per) throws Exception{
     	Persona p = null ;
     	PreparedStatement stmt= null;
     	ResultSet rs=null;
@@ -83,9 +83,9 @@ public class DataReserva {
     		}
     	} return p;
     	
-    }*/
+    }
     
-   /* public void add (Reserva r ) throws Exception{
+   public void add (Reserva r ) throws Exception{
     	PreparedStatement stmt=null;
     	ResultSet keyResultSet=null;
     	try{ stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
@@ -114,7 +114,7 @@ public class DataReserva {
     } 
 
 
-/*
+
 public ResultSet getResultSet() throws ApplicationException{	
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -137,8 +137,8 @@ public ResultSet getResultSet() throws ApplicationException{
 	}
 
 
-*/
-/*public void update(Reserva r){
+
+public void update(Reserva r){
 	//ResultSet rs=null;
 	PreparedStatement stmt=null;	
 	try {
@@ -179,6 +179,7 @@ public void delete(Reserva r){
 	
 	
 }
+/*
 public void guardarSeparado(java.sql.Date fecha, java.sql.Time hora){
 	try {
 		
@@ -201,6 +202,7 @@ public void guardarSeparado(java.sql.Date fecha, java.sql.Time hora){
 	} catch (SQLException e ){
 		e.printStackTrace();
 	}
+}*/
 }
-}
-*/
+
+

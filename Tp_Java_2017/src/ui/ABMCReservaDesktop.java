@@ -1,48 +1,63 @@
-/*package ui;
+package ui;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import controlers.*;
+import entity.*;
+import util.*;
+
+
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JComboBox;
-
-import controlers.CtrlABMCElemento;
-import controlers.CtrlABMCReserva;
-import controlers.CtrlABMCTipoElemento;
-import entity.*;
+import javax.swing.JCheckBox;
+import javax.swing.JButton;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
+import javax.swing.JComboBox;
+
+import org.jdesktop.beansbinding.BeanProperty;
+import org.jdesktop.beansbinding.AutoBinding;
+import org.jdesktop.beansbinding.Bindings;
+import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 
 public class ABMCReservaDesktop extends JInternalFrame {
-	private CtrlABMCReserva ctrl=new CtrlABMCReserva();
 	
-	private JTextField txtID;
-	private JButton btnBuscar;
-	private JTextField txtDni;
+	private CtrlABMCReserva ctrl=new CtrlABMCReserva();
+	private Reserva currentRes=new Reserva();
+	
+
+	private JTextField txtIdReserva;
 	private JTextField txtFecha;
 	private JTextField txtHora;
 	private JTextField txtDetalle;
 	private JTextField txtEstado;
+	private JTextField txtPersona;
 	private JButton btnAgregar;
+	private JButton btnEliminar;
 	private JButton btnModificar;
-	private JButton btnBorrar;
-	private JComboBox cboTipoElemento;
+	private JButton btnBuscar;
 	private JComboBox cboElemento;
+	private JComboBox cboTipoElemento;
+	private JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
-/*	public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -58,36 +73,33 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-/*	public ABMCReservaDesktop() {
+	public ABMCReservaDesktop() {
+		setResizable(true);
 		setMaximizable(true);
+		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 499, 375);
+		setBounds(100, 100, 450, 300);
 		
-		JLabel lblId = new JLabel("ID");
+		JLabel lblIdReserva = new JLabel("Id Reserva");
 		
-		txtID = new JTextField();
-		txtID.setEditable(false);
-		txtID.setColumns(10);
+		txtIdReserva = new JTextField();
+		txtIdReserva.setEditable(false);
+		txtIdReserva.setColumns(10);
 		
-	
+		JLabel lblTipoElemento = new JLabel("Tipo Elemento");
 		
 		cboTipoElemento = new JComboBox();
 		
+		JLabel lblElemento = new JLabel("Elemento ");
+		
 		cboElemento = new JComboBox();
 		
-		JLabel lblTipo_elemento = new JLabel("Tipo Elemento");
 		
-		JLabel lblElemento = new JLabel("Elemento");
 		
-		txtDni = new JTextField();
-		txtDni.setColumns(10);
-		
-		JLabel lblDni = new JLabel("DNI");
+		JLabel lblFecha = new JLabel("Fecha");
 		
 		txtFecha = new JTextField();
 		txtFecha.setColumns(10);
-		
-		JLabel lblFecha = new JLabel("Fecha");
 		
 		JLabel lblHora = new JLabel("Hora");
 		
@@ -108,7 +120,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-			//	buscarClick();
+				buscarClick();
 			}
 		});
 		
@@ -121,229 +133,220 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		});
 		
 		btnModificar = new JButton("Modificar");
-		btnModificar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnModificar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				modificarClick();
 			}
 		});
 		
-		btnBorrar = new JButton("Borrar");
-		btnBorrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				borrarClick();
 			}
 		});
+		
+		JLabel lblPersona = new JLabel("Persona");
+		
+		txtPersona = new JTextField();
+		txtPersona.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(23)
-							.addComponent(lblId))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblTipo_elemento))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblElemento))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblDni))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblFecha))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblHora))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblDetalle))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblEstado)))
-					.addGap(105)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(txtEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(215, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(txtHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap(215, Short.MAX_VALUE))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap())
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap())
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(cboElemento, Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(cboTipoElemento, Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(txtID, Alignment.TRAILING))
-								.addPreferredGap(ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-								.addComponent(btnBuscar)
-								.addGap(25)))))
-				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(btnAgregar)
-					.addGap(62)
-					.addComponent(btnModificar)
-					.addGap(76)
-					.addComponent(btnBorrar)
-					.addContainerGap(100, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblHora)
+								.addComponent(lblDetalle)
+								.addComponent(lblIdReserva)
+								.addComponent(lblTipoElemento)
+								.addComponent(lblElemento)
+								.addComponent(lblFecha)
+								.addComponent(lblEstado))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(txtHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addComponent(cboTipoElemento, 0, 264, Short.MAX_VALUE)
+										.addComponent(txtIdReserva, 264, 264, Short.MAX_VALUE)
+										.addComponent(cboElemento, 0, 264, Short.MAX_VALUE))
+									.addGap(14)
+									.addComponent(btnBuscar))
+								.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnAgregar)
+							.addGap(18)
+							.addComponent(btnEliminar)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnModificar))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblPersona)
+							.addGap(72)
+							.addComponent(txtPersona, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblIdReserva)
+						.addComponent(txtIdReserva, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblId)
-							.addComponent(txtID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(btnBuscar))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblTipoElemento)
+							.addGap(18)
+							.addComponent(lblElemento))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(cboTipoElemento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnBuscar))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(cboElemento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(cboTipoElemento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblTipo_elemento))
+						.addComponent(lblFecha)
+						.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(cboElemento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblElemento))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(txtDni, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDni))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblFecha))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblHora)
 						.addComponent(txtHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblDetalle)
 						.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblEstado)
 						.addComponent(txtEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPersona)
+						.addComponent(txtPersona, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAgregar)
 						.addComponent(btnModificar)
-						.addComponent(btnBorrar))
+						.addComponent(btnEliminar))
 					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);
-		cargarListas();
+		cargarListas(); 
 
 	}
-	private void cargarListas() {
-		try {
-			this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray()));
-			this.cboElemento.setSelectedIndex(-1);
-		//	this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray());
-		//	this.cboTipoElemento.setSelectedIndex(-1);
+	
+	protected void buscarClick() {
+	
+		/*try {
+			this.mapearAForm(ctrl.getByNombre(this.mapearDeForm()));
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
+		*/
 	}
-
-	/*protected void buscarClick() {
-		try {
-			this.mapearAForm(ctrl.getByDni(this.mapearDeForm()));
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getMessage());
-		}
-		
-	}
-	*/
-/*	protected void agregarClick() {
-		Reserva r = this.mapearDeForm();
+	protected void agregarClick() {
+		Reserva re= this.mapearDeForm();
 		try{
-			ctrl.add(r);
-			this.txtID.setText(String.valueOf(r.getId_res()));
+			ctrl.add(re);
+			this.txtIdReserva.setText(String.valueOf(re.getId_res()));
 			notificar("Reserva creada con exito ");
-			mapearDeForm();
-			limpiarCampos();
+			mapearDeForm();		
+			this.limpiarCampos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
-		//this.txtId.setText(String.valueOf(p.getId_per()));
+	
 	}
+
 	
 	protected void borrarClick(){
 		try{
-			Reserva r = mapearDeForm();
-			ctrl.delete(r); //lo envio a la capa logica el persona para que haga el delete
+			Reserva re = mapearDeForm();	
+			ctrl.delete(re); //lo envio a la capa logica reserva para que haga el delete
 		    notificar("Reserva eliminada con exito");
 		    this.limpiarCampos();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getMessage());
-		}
-	}
-	
-	protected void modificarClick(){
-		try{
-			Reserva r = mapearDeForm();
-			mapearAForm(r);
-			ctrl.update(r);
-			notificar("Reserva modificado con exito");
+			ctrl.delete(this.mapearDeForm());
 			this.limpiarCampos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
-	
-	private void mapearAForm(Reserva r){
-		this.txtID.setText(String.valueOf(r.getId_res()));
-		this.cboElemento.setSelectedItem(r.getElemento());
-		this.txtFecha.setd(r.getFecha());
-		this.txtHora.set(r.getHora());
-		
-	}
-	
-	private Persona mapearDeForm(){
-		Persona p=new Persona();
-		if(!this.txtId.getText().isEmpty()){
-			p.setId_per(Integer.parseInt(this.txtId.getText()));
+
+	protected void modificarClick(){
+		try{
+			Reserva re = mapearDeForm();
+			mapearAForm(re);
+			ctrl.update(re);
+			notificar("Reserva modificada con exito");
+			this.limpiarCampos();
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
-		p.setDni(this.txtDni.getText());
-		p.setNombre(this.txtNombre.getText());
-		p.setApellido(this.txtApellido.getText());
-		p.setEmail(this.txtEmail.getText());
-		p.setUsuario(this.txtUsuario.getText());
-		p.setContraseña(this.txtContraseña.getText());
-		p.setHabilitado(this.chckbxHabilitado.isSelected());
-		if (comboBox.getSelectedIndex() != -1){
-			p.setCategoria((Categoria)this.comboBox.getSelectedItem());
-		}
-		return p;
+	}
+	private void mapearAForm(Reserva re){
+		this.txtIdReserva.setText(String.valueOf(re.getId_res()));
+		this.cboTipoElemento.setSelectedItem(re.getElemento().getTipoElemento());
+		this.cboElemento.setSelectedItem(re.getElemento());
+		this.txtFecha.setText(String.valueOf(re.getFecha()));
+		this.txtHora.setText(String.valueOf(re.getHora()));
+		this.txtDetalle.setText(String.valueOf(re.getDetalle()));
+		this.txtEstado.setText(String.valueOf(re.getEstado()));
+		this.txtPersona.setText(String.valueOf(re.getPersona()));
+
 	}
 	
-	public void showPersona(Persona p){
-		this.mapearAForm(p);
+	private Reserva mapearDeForm(){
+		Reserva re= new Reserva();
+		if(!this.txtIdReserva.getText().isEmpty()){
+			re.setId_res(Integer.parseInt(this.txtIdReserva.getText()));
+		}
+		if (cboTipoElemento.getSelectedIndex()!= -1){
+			//
+		}
+		if (cboElemento.getSelectedIndex()!= -1){
+			re.setElemento((Elemento)this.cboElemento.getSelectedItem());
+		}
+		//re.setFecha(this.txtFecha.getText());
+		//re.setHora(this.txtHora.getText());
+		re.setDetalle(this.txtDetalle.getText());
+		re.setEstado(this.txtEstado.getText());
+		//re.setPersona(this.txtPersona.getText());
+		return re; 
 	}
+	
+	public void showElemento(Reserva re){
+		this.mapearAForm(re);
+	}
+	
 	private void limpiarCampos(){
-		
-		this.txtDni.setText("");
-		this.txtNombre.setText("");
-		this.txtApellido.setText("");
-		this.txtEmail.setText("");
-		//this.comboBox.setEditor(anEditor);
-		this.txtUsuario.setText("");
-		this.txtContraseña.setText("");
+		this.txtFecha.setText("");
+		this.txtHora.setText("");
+		this.txtDetalle.setText("");
+		this.txtEstado.setText("");
+		this.txtPersona.setText("");
 		
 	}
 	public void notificar(String mensaje) {
 		JOptionPane.showMessageDialog(this.frame, mensaje);
 	}
+	private void cargarListas() {
+		try {
+		//	this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray()));
+		//	this.cboElemento.setSelectedIndex(-1);
+		//	this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray());
+		//	this.cboTipoElemento.setSelectedIndex(-1);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
+	
+	}
 }
-*/

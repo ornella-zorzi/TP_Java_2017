@@ -1,4 +1,4 @@
-/*package controlers;
+package controlers;
 import entity.*;
 import data.*;
 
@@ -54,7 +54,7 @@ public class CtrlABMCReserva {
 		return null; 
 		
 	}*/
-/*	
+	
 	public ArrayList<Reserva> getAll() throws Exception {
 		
 		return dataRes.getAll();
@@ -67,4 +67,3 @@ public class CtrlABMCReserva {
 	}
 
 }
-*/
