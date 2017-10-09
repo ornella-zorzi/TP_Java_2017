@@ -373,8 +373,8 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	}
 	private void cargarListas() {
 		try {
-		//	this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray()));
-		//	this.cboElemento.setSelectedIndex(-1);
+			this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray()));
+			this.cboElemento.setSelectedIndex(-1);
 		//	this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray());
 		//	this.cboTipoElemento.setSelectedIndex(-1);
 		} catch (Exception e) {

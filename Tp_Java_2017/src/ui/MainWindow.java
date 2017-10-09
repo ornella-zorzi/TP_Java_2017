@@ -111,35 +111,76 @@ public class MainWindow {
 			}
 		});
 		mnTipoElemento.add(mntmListadoTipoElementos);
+		
+		JMenu mnReserva = new JMenu("Reserva");
+		menuBar.add(mnReserva);
+		
+		JMenuItem mntmAbmcReserva = new JMenuItem("ABMCReserva");
+		mntmAbmcReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mnuABMCReservaClick();
+			}
+		});
+		mnReserva.add(mntmAbmcReserva);
+		
+		JMenuItem mntmListadoReserva = new JMenuItem("Listado Reserva");
+		mntmListadoReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mnuListadoReservaClick();
+			}
+		});
+		mnReserva.add(mntmListadoReserva);
 	}
+	
+	
+	
+	
+	protected void mnuABMCReservaClick() {
+		ABMCReservaDesktop re= new ABMCReservaDesktop();
+		desktopPane.add(re);
+		re.setVisible(true);
+	}
+	protected void mnuListadoReservaClick() {
+		
+		ListadoReserva lr= new ListadoReserva();
+		desktopPane.add(lr);
+		lr.setVisible(true);
+	}
+	
+	
 	protected void mnuABMCPersonaClick() {
 		ABMCPersonaDesktop pd= new ABMCPersonaDesktop();
 		desktopPane.add(pd);
 		pd.setVisible(true);
-	}
-	protected void mnuABMCElementoClick() {
-		ABMCElementoDesktop ed= new ABMCElementoDesktop();
-		desktopPane.add(ed);
-		ed.setVisible(true);
 	}
 	protected void mnuListadoPersonaClick() {
 		ListadoPersonas lp= new ListadoPersonas();
 		desktopPane.add(lp);
 		lp.setVisible(true);
 	}
-	protected void mnuListadoTipoElementoClick() {
-		ListadoTipoElementos lte= new ListadoTipoElementos();
-		desktopPane.add(lte);
-		lte.setVisible(true);
+	
+	
+	protected void mnuABMCElementoClick() {
+		ABMCElementoDesktop ed= new ABMCElementoDesktop();
+		desktopPane.add(ed);
+		ed.setVisible(true);
 	}
 	protected void mnuListadoElementoClick() {
 		ListadoElementos le= new ListadoElementos();
 		desktopPane.add(le);
 		le.setVisible(true);
 	}
+
+
 	protected void mnuABMCTipoElementoClick() {
 		ABMCTipoElementoDesktop ted= new ABMCTipoElementoDesktop();
 		desktopPane.add(ted);
 		ted.setVisible(true);
 	}
+	protected void mnuListadoTipoElementoClick() {
+		ListadoTipoElementos lte= new ListadoTipoElementos();
+		desktopPane.add(lte);
+		lte.setVisible(true);
+	}
+	
 }  
