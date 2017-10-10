@@ -17,13 +17,13 @@ public class DataReserva {
 				while(rs.next()){
 					Reserva r = new Reserva();
 					r.setElemento(new Elemento());
-					//r.setPersona(new Persona());
+					r.setPersona(new Persona());
 					r.setId_res(rs.getInt("id_res"));
 					r.getElemento().setId_El(rs.getInt("id_el"));
 					r.getElemento().setNombre_El(rs.getString("nombre_el"));
 					r.getElemento().getTipoElemento().setId_TE(rs.getInt("id_te"));
 					r.getElemento().getTipoElemento().setNombre_TE(rs.getString("nombre_te"));
-					//r.getPersona().setId_per(rs.getInt("id_per"));
+					r.getPersona().setId_per(rs.getInt("id_per"));
 					r.setFecha(rs.getDate("fecha"));
 					r.setHora(rs.getTime("hora"));
 					r.setDetalle(rs.getString("detalle"));
@@ -89,15 +89,15 @@ public class DataReserva {
     	PreparedStatement stmt=null;
     	ResultSet keyResultSet=null;
     	try{ stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-				"insert into reserva(id_el, id_te,fecha, hora, detalle, estado) " +
-				 "values (?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+				"insert into reserva(id_el, id_te,fecha, hora, detalle, estado, id_per) " +
+				 "values (?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
     		  stmt.setInt(1,r.getElemento().getId_El());
     		  stmt.setInt(2,r.getElemento().getTipoElemento().getId_TE());
     		  stmt.setDate(3, fecha); 
     		  stmt.setTime(4, hora);
     		  stmt.setString(5,r.getDetalle());
     		  stmt.setString(6, r.getEstado());
-    		  //stmt.setString(3,r.getPersona().getDni());
+    		  stmt.setInt(3,r.getPersona().getId_per());
     		  
     		  stmt.executeUpdate();
     		  keyResultSet=stmt.getGeneratedKeys();
@@ -138,7 +138,7 @@ public ResultSet getResultSet() throws ApplicationException{
 		try
 		{
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"SELECT id_res, id_el, id_te, fecha, hora, detalle, estado " +
+					"SELECT id_res, id_el, id_te, fecha, hora, detalle, estado, id_per " +
 					"FROM reserva  inner join elemento  on reserva.id_el=elemento.id_el where id_te=?");			
 			rs = stmt.executeQuery();
 			

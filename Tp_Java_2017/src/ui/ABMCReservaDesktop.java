@@ -54,6 +54,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	private JComboBox cboElemento;
 	private JComboBox cboTipoElemento;
 	private JFrame frame;
+	private JTextField txtIdPer;
 
 	/**
 	 * Launch the application.
@@ -148,9 +149,22 @@ public class ABMCReservaDesktop extends JInternalFrame {
 				borrarClick();
 			}
 		});
+		
+		JLabel lblIdPersona = new JLabel("ID Persona");
+		
+		txtIdPer = new JTextField();
+		txtIdPer.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(49)
+					.addComponent(btnAgregar)
+					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+					.addComponent(btnEliminar)
+					.addGap(49)
+					.addComponent(btnModificar)
+					.addGap(69))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -160,9 +174,11 @@ public class ABMCReservaDesktop extends JInternalFrame {
 						.addComponent(lblTipoElemento)
 						.addComponent(lblElemento)
 						.addComponent(lblFecha)
-						.addComponent(lblEstado))
+						.addComponent(lblEstado)
+						.addComponent(lblIdPersona))
 					.addPreferredGap(ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(txtIdPer)
 						.addComponent(txtEstado)
 						.addComponent(txtDetalle)
 						.addComponent(txtHora)
@@ -173,14 +189,6 @@ public class ABMCReservaDesktop extends JInternalFrame {
 					.addGap(39)
 					.addComponent(btnBuscar)
 					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(49)
-					.addComponent(btnAgregar)
-					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-					.addComponent(btnEliminar)
-					.addGap(49)
-					.addComponent(btnModificar)
-					.addGap(69))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -219,7 +227,11 @@ public class ABMCReservaDesktop extends JInternalFrame {
 							.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(txtEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+					.addGap(22)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblIdPersona)
+						.addComponent(txtIdPer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnModificar)
 						.addComponent(btnEliminar)
@@ -332,7 +344,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		this.txtHora.setText(String.valueOf(re.getHora()));
 		this.txtDetalle.setText(String.valueOf(re.getDetalle()));
 		this.txtEstado.setText(String.valueOf(re.getEstado()));
-		//this.txtPersona.setText(String.valueOf(re.getPersona()));
+		this.txtIdPer.setText(String.valueOf(re.getPersona().getId_per()));
 
 	}
 	
@@ -352,6 +364,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		
 		re.setDetalle(this.txtDetalle.getText());
 		re.setEstado(this.txtEstado.getText());
+		re.getPersona().setId_per(Integer.parseInt(this.txtIdPer.getText()));
 		return (re);
 	}
 	public java.sql.Date mapearDeFormFecha(){

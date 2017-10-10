@@ -8,7 +8,7 @@ public class Reserva {
 	private Date fecha; 
 	private String estado;
 	private String detalle;
-	//private Persona persona;
+	private Persona persona;
 	private Elemento elemento;
 	private TipoElemento tipoelemento;
 	private int id_res;
@@ -31,12 +31,12 @@ public class Reserva {
 	public void setElemento(Elemento elemento) {
 		this.elemento = elemento;
 	}
-	/*public Persona getPersona() {
+	public Persona getPersona() {
 		return persona;
 	}
 	public void setPersona(Persona persona) {
 		this.persona = persona;
-	}*/
+	}
 	
 	
 	
