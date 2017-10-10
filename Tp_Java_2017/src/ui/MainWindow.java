@@ -122,9 +122,6 @@ public class MainWindow {
 			}
 		});
 		mnReserva.add(mntmAbmcReserva);
-<<<<<<< HEAD
-=======
-		
 		JMenuItem mntmListadoReserva = new JMenuItem("Listado Reserva");
 		mntmListadoReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -132,17 +129,8 @@ public class MainWindow {
 			}
 		});
 		mnReserva.add(mntmListadoReserva);
->>>>>>> branch 'master' of https://github.com/ornella-zorzi/TP_Java_2017.git
 	}
 	
-	
-	
-	
-	protected void mnuABMCReservaClick() {
-		ABMCReservaDesktop re= new ABMCReservaDesktop();
-		desktopPane.add(re);
-		re.setVisible(true);
-	}
 	protected void mnuListadoReservaClick() {
 		
 		ListadoReserva lr= new ListadoReserva();
@@ -180,18 +168,15 @@ public class MainWindow {
 		desktopPane.add(ted);
 		ted.setVisible(true);
 	}
-<<<<<<< HEAD
 	protected void mnuABMCReservaClick() {
 		ABMCReservaDesktop rd= new ABMCReservaDesktop();
 		desktopPane.add(rd);
 		rd.setVisible(true);
 	}
-=======
 	protected void mnuListadoTipoElementoClick() {
 		ListadoTipoElementos lte= new ListadoTipoElementos();
 		desktopPane.add(lte);
 		lte.setVisible(true);
 	}
-	
->>>>>>> branch 'master' of https://github.com/ornella-zorzi/TP_Java_2017.git
+
 }  

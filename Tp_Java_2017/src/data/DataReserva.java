@@ -12,7 +12,7 @@ public class DataReserva {
 		ArrayList<Reserva> res = new ArrayList<Reserva>();
 		try{ 
 			stmt = FactoryConexion.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("Select  *  from reserva  inner join elemento  on reserva.id_el=elemento.id_el inner join tipo_elemento on elemento.id_te=tipo_elemento.id_te");
+			rs = stmt.executeQuery("Select  *  from reserva  inner join elemento  on reserva.id_el=elemento.id_el");
 			if (rs!= null ){
 				while(rs.next()){
 					Reserva r = new Reserva();
