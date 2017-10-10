@@ -392,10 +392,17 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	}
 	private void cargarListas() {
 		try {
+<<<<<<< HEAD
 		this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray()));
 		this.cboElemento.setSelectedIndex(-1);
 		this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getTipoElemento().toArray()));
 		this.cboTipoElemento.setSelectedIndex(-1);
+=======
+			this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray()));
+			this.cboElemento.setSelectedIndex(-1);
+		//	this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray());
+		//	this.cboTipoElemento.setSelectedIndex(-1);
+>>>>>>> branch 'master' of https://github.com/ornella-zorzi/TP_Java_2017.git
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
