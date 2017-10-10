@@ -12,18 +12,18 @@ public class DataReserva {
 		ArrayList<Reserva> res = new ArrayList<Reserva>();
 		try{ 
 			stmt = FactoryConexion.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("Select  *  from reserva  inner join elemento  on reserva.id_el=elemento.id_el ");
+			rs = stmt.executeQuery("Select  *  from reserva  inner join elemento  on reserva.id_el=elemento.id_el inner join tipo_elemento on elemento.id_te=tipo_elemento.id_te");
 			if (rs!= null ){
 				while(rs.next()){
 					Reserva r = new Reserva();
 					r.setElemento(new Elemento());
-					r.setPersona(new Persona());
+					//r.setPersona(new Persona());
 					r.setId_res(rs.getInt("id_res"));
 					r.getElemento().setId_El(rs.getInt("id_el"));
 					r.getElemento().setNombre_El(rs.getString("nombre_el"));
 					r.getElemento().getTipoElemento().setId_TE(rs.getInt("id_te"));
 					r.getElemento().getTipoElemento().setNombre_TE(rs.getString("nombre_te"));
-					//r.getPersona().setDni(rs.getString("dni"));
+					//r.getPersona().setId_per(rs.getInt("id_per"));
 					r.setFecha(rs.getDate("fecha"));
 					r.setHora(rs.getTime("hora"));
 					r.setDetalle(rs.getString("detalle"));
@@ -48,7 +48,7 @@ public class DataReserva {
 		
 	} 
 
-   public Persona getByDni(Persona per) throws Exception{
+  /* public Persona getByDni(Persona per) throws Exception{
     	Persona p = null ;
     	PreparedStatement stmt= null;
     	ResultSet rs=null;
@@ -84,18 +84,21 @@ public class DataReserva {
     	} return p;
     	
     }
-    
-   public void add (Reserva r ) throws Exception{
+   */ 
+   public void add (Reserva r,java.sql.Date fecha, java.sql.Time hora) throws Exception{
     	PreparedStatement stmt=null;
     	ResultSet keyResultSet=null;
     	try{ stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-				"insert into reserva(id_el, id_te, fecha, hora, detalle, estado) " +
+				"insert into reserva(id_el, id_te,fecha, hora, detalle, estado) " +
 				 "values (?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
     		  stmt.setInt(1,r.getElemento().getId_El());
     		  stmt.setInt(2,r.getElemento().getTipoElemento().getId_TE());
+    		  stmt.setDate(3, fecha); 
+    		  stmt.setTime(4, hora);
+    		  stmt.setString(5,r.getDetalle());
+    		  stmt.setString(6, r.getEstado());
     		  //stmt.setString(3,r.getPersona().getDni());
-    		  stmt.setString(4,r.getDetalle());
-    		  stmt.setString(5, r.getEstado());
+    		  
     		  stmt.executeUpdate();
     		  keyResultSet=stmt.getGeneratedKeys();
     		  if (keyResultSet!=null && keyResultSet.next()){
@@ -112,8 +115,22 @@ public class DataReserva {
     		e.printStackTrace();
     	}
     } 
+  /* public void guardarSeparado(java.sql.Date fecha, java.sql.Time hora){
+	   			PreparedStatement stmt=null;
+		    	ResultSet keyResultSet=null;
+		    	try{ stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
+						"insert into fecha_hora(fecha,hora) values (?,?)"
+						); // el campo fecha es de tipo date y hora de timpo time
+				stmt.setDate(1, fecha); //parámetro de entrada del método
+				stmt.setTime(2, hora);  //parámetro de entrada del método
+				stmt.executeUpdate();
+				stmt.close();
+			} catch (SQLException | ApplicationException e) {
+				e.printStackTrace();
+			}
+		}
 
-
+*/
 
 public ResultSet getResultSet() throws ApplicationException{	
 		PreparedStatement stmt = null;
@@ -122,7 +139,7 @@ public ResultSet getResultSet() throws ApplicationException{
 		{
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
 					"SELECT id_res, id_el, id_te, fecha, hora, detalle, estado " +
-					"FROM reserva  inner join elemento  on reserva.id_el=elemento.id_el where dni=?");			
+					"FROM reserva  inner join elemento  on reserva.id_el=elemento.id_el where id_te=?");			
 			rs = stmt.executeQuery();
 			
 		} catch (SQLException e) {
@@ -135,7 +152,6 @@ public ResultSet getResultSet() throws ApplicationException{
 		return rs;
 		
 	}
-
 
 
 public void update(Reserva r){

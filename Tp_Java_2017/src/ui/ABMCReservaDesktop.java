@@ -1,5 +1,5 @@
 package ui;
-
+import data.DataReserva;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -25,6 +25,8 @@ import javax.swing.JButton;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.sql.Time;
 
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
@@ -45,7 +47,6 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	private JTextField txtHora;
 	private JTextField txtDetalle;
 	private JTextField txtEstado;
-	private JTextField txtPersona;
 	private JButton btnAgregar;
 	private JButton btnEliminar;
 	private JButton btnModificar;
@@ -78,7 +79,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 350);
 		
 		JLabel lblIdReserva = new JLabel("Id Reserva");
 		
@@ -117,12 +118,12 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		txtEstado.setColumns(10);
 		
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.addMouseListener(new MouseAdapter() {
+		/*btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				buscarClick();
 			}
-		});
+		});*/
 		
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.addMouseListener(new MouseAdapter() {
@@ -147,50 +148,39 @@ public class ABMCReservaDesktop extends JInternalFrame {
 				borrarClick();
 			}
 		});
-		
-		JLabel lblPersona = new JLabel("Persona");
-		
-		txtPersona = new JTextField();
-		txtPersona.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblHora)
-								.addComponent(lblDetalle)
-								.addComponent(lblIdReserva)
-								.addComponent(lblTipoElemento)
-								.addComponent(lblElemento)
-								.addComponent(lblFecha)
-								.addComponent(lblEstado))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(txtHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(cboTipoElemento, 0, 264, Short.MAX_VALUE)
-										.addComponent(txtIdReserva, 264, 264, Short.MAX_VALUE)
-										.addComponent(cboElemento, 0, 264, Short.MAX_VALUE))
-									.addGap(14)
-									.addComponent(btnBuscar))
-								.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnAgregar)
-							.addGap(18)
-							.addComponent(btnEliminar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnModificar))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblPersona)
-							.addGap(72)
-							.addComponent(txtPersona, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(lblHora)
+						.addComponent(lblDetalle)
+						.addComponent(lblIdReserva)
+						.addComponent(lblTipoElemento)
+						.addComponent(lblElemento)
+						.addComponent(lblFecha)
+						.addComponent(lblEstado))
+					.addPreferredGap(ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(txtEstado)
+						.addComponent(txtDetalle)
+						.addComponent(txtHora)
+						.addComponent(txtFecha)
+						.addComponent(cboElemento, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(cboTipoElemento, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(txtIdReserva, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+					.addGap(39)
+					.addComponent(btnBuscar)
 					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(49)
+					.addComponent(btnAgregar)
+					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+					.addComponent(btnEliminar)
+					.addGap(49)
+					.addComponent(btnModificar)
+					.addGap(69))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -211,40 +201,39 @@ public class ABMCReservaDesktop extends JInternalFrame {
 								.addComponent(btnBuscar))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(cboElemento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblFecha)
 						.addComponent(txtFecha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblHora)
-						.addComponent(txtHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblDetalle)
-						.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblEstado)
-						.addComponent(txtEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblHora)
+							.addGap(17)
+							.addComponent(lblDetalle)
+							.addGap(18)
+							.addComponent(lblEstado))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(txtHora, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(txtEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPersona)
-						.addComponent(txtPersona, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAgregar)
 						.addComponent(btnModificar)
-						.addComponent(btnEliminar))
+						.addComponent(btnEliminar)
+						.addComponent(btnAgregar))
 					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);
 		cargarListas(); 
+		initDataBindings();
 
 	}
-	
+	/*
 	protected void buscarClick() {
-	 /* private void buscarClick() {
+	 private void buscarClick() {
 
 		 try {
 			 btnAceptar.setEnabled(true);
@@ -283,20 +272,30 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
-		*/
-	}
+		
+	}*/
+	/*protected void buscarClick() {
+		try {
+			this.mapearAForm(ctrl.getByTipoElemento(this.mapearDeForm()));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+		}
+		
+	}*/
 	protected void agregarClick() {
-		Reserva re= this.mapearDeForm();
+		java.sql.Date fecha=this.mapearDeFormFecha();
+		java.sql.Time hora=this.mapearDeFormHora();
+		Reserva r= this.mapearDeForm();
 		try{
-			ctrl.add(re);
-			this.txtIdReserva.setText(String.valueOf(re.getId_res()));
+			ctrl.add(r,fecha,hora);
+			//this.txtIdReserva.setText(String.valueOf(r.getId_res()));
 			notificar("Reserva creada con exito ");
-			mapearDeForm();		
+			//mapearDeForm();		
 			this.limpiarCampos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
-	
+		this.txtIdReserva.setText(String.valueOf(r.getId_res()));
 	}
 
 	
@@ -333,7 +332,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		this.txtHora.setText(String.valueOf(re.getHora()));
 		this.txtDetalle.setText(String.valueOf(re.getDetalle()));
 		this.txtEstado.setText(String.valueOf(re.getEstado()));
-		this.txtPersona.setText(String.valueOf(re.getPersona()));
+		//this.txtPersona.setText(String.valueOf(re.getPersona()));
 
 	}
 	
@@ -343,19 +342,26 @@ public class ABMCReservaDesktop extends JInternalFrame {
 			re.setId_res(Integer.parseInt(this.txtIdReserva.getText()));
 		}
 		if (cboTipoElemento.getSelectedIndex()!= -1){
-			//
+			
+			re.setTipoelemento((TipoElemento)this.cboTipoElemento.getSelectedItem());
 		}
 		if (cboElemento.getSelectedIndex()!= -1){
 			re.setElemento((Elemento)this.cboElemento.getSelectedItem());
 		}
-		//re.setFecha(this.txtFecha.getText());
-		//re.setHora(this.txtHora.getText());
+		
+		
 		re.setDetalle(this.txtDetalle.getText());
 		re.setEstado(this.txtEstado.getText());
-		//re.setPersona(this.txtPersona.getText());
-		return re; 
+		return (re);
 	}
-	
+	public java.sql.Date mapearDeFormFecha(){
+		java.sql.Date fecha = Date.valueOf(this.txtFecha.getText());
+		return (fecha);
+	}
+	public java.sql.Time mapearDeFormHora(){
+		java.sql.Time hora = Time.valueOf(this.txtHora.getText());
+		return (hora);
+	}
 	public void showElemento(Reserva re){
 		this.mapearAForm(re);
 	}
@@ -365,7 +371,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		this.txtHora.setText("");
 		this.txtDetalle.setText("");
 		this.txtEstado.setText("");
-		this.txtPersona.setText("");
+		//this.txtPersona.setText("");
 		
 	}
 	public void notificar(String mensaje) {
@@ -373,13 +379,19 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	}
 	private void cargarListas() {
 		try {
-		//	this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray()));
-		//	this.cboElemento.setSelectedIndex(-1);
-		//	this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray());
-		//	this.cboTipoElemento.setSelectedIndex(-1);
+		this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray()));
+		this.cboElemento.setSelectedIndex(-1);
+		this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getTipoElemento().toArray()));
+		this.cboTipoElemento.setSelectedIndex(-1);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	
+	}
+	protected void initDataBindings() {
+		BeanProperty<JTextField, Boolean> jTextFieldBeanProperty = BeanProperty.create("enabled");
+		BeanProperty<JTextField, Boolean> jTextFieldBeanProperty_1 = BeanProperty.create("editable");
+		AutoBinding<JTextField, Boolean, JTextField, Boolean> autoBinding = Bindings.createAutoBinding(UpdateStrategy.READ, txtIdReserva, jTextFieldBeanProperty, txtIdReserva, jTextFieldBeanProperty_1);
+		autoBinding.bind();
 	}
 }

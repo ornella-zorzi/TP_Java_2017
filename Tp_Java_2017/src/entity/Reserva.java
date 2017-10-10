@@ -1,17 +1,24 @@
 package entity;
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Time;
 
 
 public class Reserva {
-	private Date hora;
+	private Time hora;
 	private Date fecha; 
 	private String estado;
 	private String detalle;
-	private Persona persona;
+	//private Persona persona;
 	private Elemento elemento;
+	private TipoElemento tipoelemento;
 	private int id_res;
 	
-	
+	public TipoElemento getTipoelemento() {
+		return tipoelemento;
+	}
+	public void setTipoelemento(TipoElemento tipoelemento) {
+		this.tipoelemento = tipoelemento;
+	}
 	public Elemento getElemento() {
 		return elemento;
 	}
@@ -24,12 +31,12 @@ public class Reserva {
 	public void setElemento(Elemento elemento) {
 		this.elemento = elemento;
 	}
-	public Persona getPersona() {
+	/*public Persona getPersona() {
 		return persona;
 	}
 	public void setPersona(Persona persona) {
 		this.persona = persona;
-	}
+	}*/
 	
 	
 	
@@ -39,10 +46,10 @@ public class Reserva {
 	public void setDetalle(String detalle) {
 		this.detalle = detalle;
 	}
-	public Date getHora() {
+	public Time getHora() {
 		return hora;
 	}
-	public void setHora(Date hora) {
+	public void setHora(Time hora) {
 		this.hora = hora;
 	}
 	public Date getFecha() {
@@ -58,8 +65,37 @@ public class Reserva {
 		this.estado = estado;
 	}
 
+	public Reserva ( Date fecha, Time hora, String detalle, String estado){
+		this.setFecha(fecha);
+		this.setHora(hora);
+		this.setDetalle(detalle);
+		this.setEstado(estado);
+		
+	}
+	public Reserva (){
+		
+	}
+	@Override
+	public String toString(){
+		return this.getTipoelemento().getNombre_TE();
+	}
 	
+/*	@Override
+	public boolean equals(Object o){
+		return (o instanceof Elemento && ((Elemento)o).getId_El()==this.getId_El() );
+	}*/
 	
+	@Override
+	public int hashCode(){
+		return ((Integer)this.getId_res()).hashCode();
+	}
+	@Override
+	public boolean equals(Object r){
+		return (r instanceof Reserva) &&
+			 (((Reserva)r).getTipoelemento().getNombre_TE().equals(this.getTipoelemento().getNombre_TE()));
+					
+
+	}
 	
 	
 

@@ -42,7 +42,6 @@ public class ABMCElementoDesktop extends JInternalFrame {
 	private JTextField txtId;
 	private JButton btnAgregar;
 	private JButton btnBorrar;
-	//private JButton btnModificar;
 	private JButton btnBuscar;
 	private JFrame frame;
 	private JLabel lblTipoElemento;
@@ -122,14 +121,6 @@ public class ABMCElementoDesktop extends JInternalFrame {
 				buscarClick();
 			}
 		});
-	/*	
-		btnModificar_1 = new JButton("Modificar");
-		btnModificar_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-			}
-		});
-		*/
 	
 		
 	

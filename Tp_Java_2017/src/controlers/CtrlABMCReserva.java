@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class CtrlABMCReserva {
 	private DataPersona dataPer;
 	private DataReserva dataRes;
-	
+	private DataTipoElemento dataTe;
 	private DataElemento dataEL;
 	private ArrayList<Reserva> res;
 	
@@ -15,11 +15,12 @@ public class CtrlABMCReserva {
 		dataRes = new DataReserva();
 		dataPer = new DataPersona();
 		dataEL= new DataElemento();
+		dataTe= new DataTipoElemento();
 		res =new ArrayList<Reserva>();
 	}
-	public void add(Reserva r) throws Exception {
+	public void add(Reserva r, java.sql.Date fecha, java.sql.Time hora) throws Exception {
 	
-		dataRes.add(r);
+		dataRes.add(r,fecha,hora);
 	}
 	
 	public void delete(Reserva r) throws Exception{
@@ -65,5 +66,9 @@ public class CtrlABMCReserva {
 	public ArrayList<Elemento> getElemento() throws Exception{
 		return dataEL.getAll();
 	}
+	public ArrayList<TipoElemento> getTipoElemento() throws Exception{
+		return dataTe.getAll();
+	}
+	
 
 }

@@ -111,6 +111,17 @@ public class MainWindow {
 			}
 		});
 		mnTipoElemento.add(mntmListadoTipoElementos);
+		
+		JMenu mnReserva = new JMenu("Reserva");
+		menuBar.add(mnReserva);
+		
+		JMenuItem mntmAbmcReserva = new JMenuItem("ABMCReserva");
+		mntmAbmcReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mnuABMCReservaClick();
+			}
+		});
+		mnReserva.add(mntmAbmcReserva);
 	}
 	protected void mnuABMCPersonaClick() {
 		ABMCPersonaDesktop pd= new ABMCPersonaDesktop();
@@ -141,5 +152,10 @@ public class MainWindow {
 		ABMCTipoElementoDesktop ted= new ABMCTipoElementoDesktop();
 		desktopPane.add(ted);
 		ted.setVisible(true);
+	}
+	protected void mnuABMCReservaClick() {
+		ABMCReservaDesktop rd= new ABMCReservaDesktop();
+		desktopPane.add(rd);
+		rd.setVisible(true);
 	}
 }  
