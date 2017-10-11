@@ -18,9 +18,9 @@ public class CtrlABMCReserva {
 		dataTe= new DataTipoElemento();
 		res =new ArrayList<Reserva>();
 	}
-	public void add(Reserva r, java.sql.Date fecha, java.sql.Time hora) throws Exception {
+	public void add(Reserva r) throws Exception {
 	
-		dataRes.add(r,fecha,hora);
+		dataRes.add(r);
 	}
 	
 	public void delete(Reserva r) throws Exception{

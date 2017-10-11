@@ -25,8 +25,8 @@ import javax.swing.JButton;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
 import java.sql.Time;
+import java.sql.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
@@ -54,7 +54,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	private JComboBox cboElemento;
 	private JComboBox cboTipoElemento;
 	private JFrame frame;
-	private JTextField txtIdPer;
+	private JComboBox cboPersona;
 
 	/**
 	 * Launch the application.
@@ -80,7 +80,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(100, 100, 450, 350);
+		setBounds(100, 100, 479, 350);
 		
 		JLabel lblIdReserva = new JLabel("Id Reserva");
 		
@@ -150,17 +150,16 @@ public class ABMCReservaDesktop extends JInternalFrame {
 			}
 		});
 		
-		JLabel lblIdPersona = new JLabel("ID Persona");
+		JLabel lblPersona = new JLabel("Persona");
 		
-		txtIdPer = new JTextField();
-		txtIdPer.setColumns(10);
+		cboPersona = new JComboBox();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(49)
 					.addComponent(btnAgregar)
-					.addPreferredGap(ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
 					.addComponent(btnEliminar)
 					.addGap(49)
 					.addComponent(btnModificar)
@@ -175,10 +174,10 @@ public class ABMCReservaDesktop extends JInternalFrame {
 						.addComponent(lblElemento)
 						.addComponent(lblFecha)
 						.addComponent(lblEstado)
-						.addComponent(lblIdPersona))
-					.addPreferredGap(ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+						.addComponent(lblPersona))
+					.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(txtIdPer)
+						.addComponent(cboPersona, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(txtEstado)
 						.addComponent(txtDetalle)
 						.addComponent(txtHora)
@@ -186,7 +185,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 						.addComponent(cboElemento, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(cboTipoElemento, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(txtIdReserva, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
-					.addGap(39)
+					.addGap(59)
 					.addComponent(btnBuscar)
 					.addContainerGap())
 		);
@@ -227,11 +226,14 @@ public class ABMCReservaDesktop extends JInternalFrame {
 							.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(txtEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addGap(22)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblIdPersona)
-						.addComponent(txtIdPer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(22)
+							.addComponent(lblPersona))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(18)
+							.addComponent(cboPersona, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnModificar)
 						.addComponent(btnEliminar)
@@ -293,19 +295,19 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		
 	}*/
 	protected void agregarClick() {
-		java.sql.Date fecha=this.mapearDeFormFecha();
-		java.sql.Time hora=this.mapearDeFormHora();
+		//Date fecha=this.mapearDeFormFecha();
+		//Time hora=this.mapearDeFormHora();
 		Reserva r= this.mapearDeForm();
 		try{
-			ctrl.add(r,fecha,hora);
-			//this.txtIdReserva.setText(String.valueOf(r.getId_res()));
+			ctrl.add(r);
+			this.txtIdReserva.setText(String.valueOf(r.getId_res()));
 			notificar("Reserva creada con exito ");
-			//mapearDeForm();		
+			mapearDeForm();		
 			this.limpiarCampos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
-		this.txtIdReserva.setText(String.valueOf(r.getId_res()));
+		//this.txtIdReserva.setText(String.valueOf(r.getId_res()));
 	}
 
 	
@@ -334,6 +336,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
 	}
+	
 	private void mapearAForm(Reserva re){
 		this.txtIdReserva.setText(String.valueOf(re.getId_res()));
 		this.cboTipoElemento.setSelectedItem(re.getElemento().getTipoElemento());
@@ -342,7 +345,8 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		this.txtHora.setText(String.valueOf(re.getHora()));
 		this.txtDetalle.setText(String.valueOf(re.getDetalle()));
 		this.txtEstado.setText(String.valueOf(re.getEstado()));
-		this.txtIdPer.setText(String.valueOf(re.getPersona().getId_per()));
+		this.cboPersona.setSelectedItem(re.getPersona());
+		//this.txtIdPer.setText(String.valueOf(re.getPersona().getId_per()));
 
 	}
 	
@@ -358,21 +362,28 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		if (cboElemento.getSelectedIndex()!= -1){
 			re.setElemento((Elemento)this.cboElemento.getSelectedItem());
 		}
-		
-		
 		re.setDetalle(this.txtDetalle.getText());
 		re.setEstado(this.txtEstado.getText());
-		re.getPersona().setId_per(Integer.parseInt(this.txtIdPer.getText()));
+		//re.setHora(Time.valueOf(this.txtHora.getText()));
+		//re.setFecha(Date.valueOf(this.txtFecha.getText()));
+		//re.setId_per(Integer.parseInt(this.txtIdPer.getText()));
+		java.sql.Date fecha = Date.valueOf(this.txtFecha.getText());
+		re.setFecha(fecha);
+		java.sql.Time hora = Time.valueOf(this.txtHora.getText());
+		re.setHora(hora);
+		if (cboPersona.getSelectedIndex()!= -1){
+			re.setPersona((Persona)this.cboPersona.getSelectedItem());
+		}
 		return (re);
 	}
-	public java.sql.Date mapearDeFormFecha(){
+	/*public Date mapearDeFormFecha(){
 		java.sql.Date fecha = Date.valueOf(this.txtFecha.getText());
 		return (fecha);
-	}
-	public java.sql.Time mapearDeFormHora(){
-		java.sql.Time hora = Time.valueOf(this.txtHora.getText());
+	}*/
+	/*public Time mapearDeFormHora(){
+		Time hora = Time.valueOf(this.txtHora.getText());
 		return (hora);
-	}
+	}*/
 	public void showElemento(Reserva re){
 		this.mapearAForm(re);
 	}
@@ -394,6 +405,8 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		this.cboElemento.setSelectedIndex(-1);
 		this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getTipoElemento().toArray()));
 		this.cboTipoElemento.setSelectedIndex(-1);
+		this.cboPersona.setModel(new DefaultComboBoxModel(ctrl.getPersona().toArray()));
+		this.cboPersona.setSelectedIndex(-1);
 		
 		//	this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray());
 		//	this.cboTipoElemento.setSelectedIndex(-1);

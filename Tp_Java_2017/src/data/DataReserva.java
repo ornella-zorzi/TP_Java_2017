@@ -85,19 +85,19 @@ public class DataReserva {
     	
     }
    */ 
-   public void add (Reserva r,java.sql.Date fecha, java.sql.Time hora) throws Exception{
+   public void add (Reserva r) throws Exception{
     	PreparedStatement stmt=null;
     	ResultSet keyResultSet=null;
     	try{ stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-				"insert into reserva(id_el, id_te,fecha, hora, detalle, estado, id_per) " +
+				"insert into reserva(id_el, id_te, fecha, hora, detalle, estado, id_per) " +
 				 "values (?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
     		  stmt.setInt(1,r.getElemento().getId_El());
     		  stmt.setInt(2,r.getElemento().getTipoElemento().getId_TE());
-    		  stmt.setDate(3, fecha); 
-    		  stmt.setTime(4, hora);
+    		  stmt.setDate(3,r.getFecha()); 
+    		  stmt.setTime(4,r.getHora());
     		  stmt.setString(5,r.getDetalle());
     		  stmt.setString(6, r.getEstado());
-    		  stmt.setInt(3,r.getPersona().getId_per());
+    		  stmt.setInt(7,r.getPersona().getId_per());
     		  
     		  stmt.executeUpdate();
     		  keyResultSet=stmt.getGeneratedKeys();
@@ -115,11 +115,11 @@ public class DataReserva {
     		e.printStackTrace();
     	}
     } 
-  /* public void guardarSeparado(java.sql.Date fecha, java.sql.Time hora){
+  /*public void guardarSeparado(java.sql.Date fecha, java.sql.Time hora){
 	   			PreparedStatement stmt=null;
 		    	ResultSet keyResultSet=null;
 		    	try{ stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-						"insert into fecha_hora(fecha,hora) values (?,?)"
+						"insert into reserva(fecha,hora) values (?,?)"
 						); // el campo fecha es de tipo date y hora de timpo time
 				stmt.setDate(1, fecha); //parámetro de entrada del método
 				stmt.setTime(2, hora);  //parámetro de entrada del método
@@ -129,8 +129,8 @@ public class DataReserva {
 				e.printStackTrace();
 			}
 		}
-
 */
+
 
 public ResultSet getResultSet() throws ApplicationException{	
 		PreparedStatement stmt = null;
