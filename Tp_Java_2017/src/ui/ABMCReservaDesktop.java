@@ -364,13 +364,8 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		}
 		re.setDetalle(this.txtDetalle.getText());
 		re.setEstado(this.txtEstado.getText());
-		//re.setHora(Time.valueOf(this.txtHora.getText()));
-		//re.setFecha(Date.valueOf(this.txtFecha.getText()));
-		//re.setId_per(Integer.parseInt(this.txtIdPer.getText()));
-		java.sql.Date fecha = Date.valueOf(this.txtFecha.getText());
-		re.setFecha(fecha);
-		java.sql.Time hora = Time.valueOf(this.txtHora.getText());
-		re.setHora(hora);
+		re.setHora(Time.valueOf(this.txtHora.getText()));
+		re.setFecha(Date.valueOf(this.txtFecha.getText()));
 		if (cboPersona.getSelectedIndex()!= -1){
 			re.setPersona((Persona)this.cboPersona.getSelectedItem());
 		}
