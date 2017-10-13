@@ -63,11 +63,15 @@ public class CtrlABMCReserva {
 	public ArrayList<Persona> getPersona() throws Exception{
 		return dataPer.getAll();
 	}
-	public ArrayList<Elemento> getElemento() throws Exception{
+	/*public ArrayList<Elemento> getElemento() throws Exception{
 		return dataEL.getAll();
-	}
+	}*/
 	public ArrayList<TipoElemento> getTipoElemento() throws Exception{
 		return dataTe.getAll();
+	}
+	public ArrayList<Elemento> getElementosDeTipo(int id) throws Exception{
+		return dataEL.getAll2(id);
+		
 	}
 	
 

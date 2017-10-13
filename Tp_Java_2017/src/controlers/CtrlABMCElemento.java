@@ -49,10 +49,12 @@ public class CtrlABMCElemento {
 	//return this.pers;
 	return dataElem.getAll();
 	}
+   
 	public ArrayList<TipoElemento> getTipoElemento() throws Exception {
 		//return this.pers;
 		return dataTipoEl.getAll();
 		
 	}
+	
 
 }

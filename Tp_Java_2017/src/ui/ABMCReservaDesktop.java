@@ -119,12 +119,12 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		txtEstado.setColumns(10);
 		
 		btnBuscar = new JButton("Buscar");
-		/*btnBuscar.addMouseListener(new MouseAdapter() {
+		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				buscarClick();
 			}
-		});*/
+		});
 		
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.addMouseListener(new MouseAdapter() {
@@ -286,14 +286,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		}
 		
 	}*/
-	/*protected void buscarClick() {
-		try {
-			this.mapearAForm(ctrl.getByTipoElemento(this.mapearDeForm()));
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, e.getMessage());
-		}
-		
-	}*/
+	
 	protected void agregarClick() {
 		//Date fecha=this.mapearDeFormFecha();
 		//Time hora=this.mapearDeFormHora();
@@ -371,14 +364,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		}
 		return (re);
 	}
-	/*public Date mapearDeFormFecha(){
-		java.sql.Date fecha = Date.valueOf(this.txtFecha.getText());
-		return (fecha);
-	}*/
-	/*public Time mapearDeFormHora(){
-		Time hora = Time.valueOf(this.txtHora.getText());
-		return (hora);
-	}*/
+	
 	public void showElemento(Reserva re){
 		this.mapearAForm(re);
 	}
@@ -396,20 +382,32 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	}
 	private void cargarListas() {
 		try {
-		this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray()));
-		this.cboElemento.setSelectedIndex(-1);
+		//this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray()));
+		//this.cboElemento.setSelectedIndex(-1);
 		this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getTipoElemento().toArray()));
 		this.cboTipoElemento.setSelectedIndex(-1);
 		this.cboPersona.setModel(new DefaultComboBoxModel(ctrl.getPersona().toArray()));
 		this.cboPersona.setSelectedIndex(-1);
 		
-		//	this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getElemento().toArray());
-		//	this.cboTipoElemento.setSelectedIndex(-1);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
-	
 	}
+	protected void buscarClick() {
+	try {
+		Reserva re=new Reserva();
+		if (cboTipoElemento.getSelectedIndex()!= -1){
+			
+			re.setTipoelemento((TipoElemento)this.cboTipoElemento.getSelectedItem());
+		}
+		int id=re.getTipoelemento().getId_TE();
+		this.cboElemento.setModel(new DefaultComboBoxModel(ctrl.getElementosDeTipo(id).toArray()));
+		this.cboElemento.setSelectedIndex(-1);
+	} catch (Exception e) {
+		JOptionPane.showMessageDialog(this, e.getMessage());
+	}
+	
+}
 	public void showReserva(Reserva r){
 		this.mapearAForm(r);
 	}

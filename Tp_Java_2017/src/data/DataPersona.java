@@ -21,7 +21,7 @@ public class DataPersona {
 					p.setId_per(rs.getInt("id_per"));
 					p.setNombre(rs.getString("nombre"));
 					p.setApellido(rs.getString("apellido"));
-					p.setDni(rs.getNString("dni"));
+					p.setDni(rs.getString("dni"));
 					p.setEmail(rs.getString("email"));
 					p.setUsuario(rs.getString("usuario"));
 					p.setContraseña(rs.getString("contraseña"));
