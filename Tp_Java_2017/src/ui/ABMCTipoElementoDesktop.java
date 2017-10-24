@@ -264,7 +264,7 @@ public class ABMCTipoElementoDesktop extends JInternalFrame {
 		this.txtDiasAnticipacion.setText(String.valueOf(te.getDias_anticipacion()));
 	}
 	
-	private TipoElemento mapearDeForm(){
+	public TipoElemento mapearDeForm(){
 		TipoElemento te=new TipoElemento();
 		if(!this.txtID.getText().isEmpty()){
 			te.setId_TE(Integer.parseInt(this.txtID.getText()));
@@ -272,9 +272,9 @@ public class ABMCTipoElementoDesktop extends JInternalFrame {
 		te.setNombre_TE(this.txtNombreTe.getText());
 		te.setCant_reserva_max(Integer.parseInt(this.txtCantReservaMax.getText()));
 		te.setTiempo_limite(Integer.parseInt(this.txtTiempoLimite.getText()));
-		te.setDias_anticipacion(Integer.parseInt(this.txtTiempoLimite.getText()));
+		te.setDias_anticipacion(Integer.parseInt(this.txtDiasAnticipacion.getText()));
 		
-		return te;
+		return (te);
 
 	}
 	

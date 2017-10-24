@@ -70,8 +70,12 @@ public class CtrlABMCReserva {
 		return dataTe.getAll();
 	}
 	public ArrayList<Elemento> getElementosDeTipo(int id) throws Exception{
-		return dataEL.getAll2(id);
+		return dataEL.getElementosDeTipo(id);
 		
+	}
+	public int validaDisponibilidad(Reserva r) throws Exception{
+		int i=dataRes.validaDisponibilidad(r);
+		return i;
 	}
 	
 

@@ -40,7 +40,7 @@ public class ListadoReserva extends JInternalFrame {
 	 */
 	public ListadoReserva() {
 		setIconifiable(true);
-		setTitle("Listado Elementos");
+		setTitle("Listado Reserva");
 		setResizable(true);
 		setMaximizable(true);
 		setClosable(true);

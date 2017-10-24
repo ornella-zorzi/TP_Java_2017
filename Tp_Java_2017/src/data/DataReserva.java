@@ -22,7 +22,7 @@ public class DataReserva {
 					r.getElemento().setId_El(rs.getInt("id_el"));
 					r.getElemento().setNombre_El(rs.getString("nombre_el"));
 					r.getElemento().getTipoElemento().setId_TE(rs.getInt("id_te"));
-					r.getElemento().getTipoElemento().setNombre_TE(rs.getString("nombre_te"));
+					//r.getElemento().getTipoElemento().setNombre_TE(rs.getString("nombre_te"));
 					r.getPersona().setId_per(rs.getInt("id_per"));
 					r.setFecha(rs.getDate("fecha"));
 					r.setHora(rs.getTime("hora"));
@@ -48,43 +48,6 @@ public class DataReserva {
 		
 	} 
 
-  /* public Persona getByDni(Persona per) throws Exception{
-    	Persona p = null ;
-    	PreparedStatement stmt= null;
-    	ResultSet rs=null;
-    	try {
-    		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select p.id_per, p.dni, p.nombre, p.apellido, p.email, p.usuario, p.contraseña, p.habilitado, p.id_cat, c.nombre_cat from persona p  inner join categoria c  on p.id_cat=c.id_cat where p.dni=? ");
-    		 stmt.setString(1, per.getDni());
-    		 rs=stmt.executeQuery();
-    		 if(rs!=null && rs.next()){
-    			 p=new Persona();
-    			 p.setCategoria(new Categoria());
-    			 p.setId_per(rs.getInt("id_per"));
-					p.setNombre(rs.getString("nombre"));
-					p.setApellido(rs.getString("apellido"));
-					p.setDni(rs.getNString("dni"));
-					p.setEmail(rs.getString("email"));
-					p.setUsuario(rs.getString("usuario"));
-					p.setContraseña(rs.getString("contraseña"));
-					p.setHabilitado(rs.getBoolean("habilitado"));
-					p.getCategoria().setId_cat(rs.getInt("id_cat"));
-					p.getCategoria().setNombre_cat(rs.getString("nombre_cat"));
-    		 }
-    		 
-    	} catch (Exception e ){
-    		throw e;
-    	} finally {
-    		try{
-    			if(rs!=null)rs.close();
-    			if (stmt!=null)stmt.close();
-    			FactoryConexion.getInstancia().releaseConn();
-    		}catch (SQLException e ){
-    			throw e;
-    		}
-    	} return p;
-    	
-    }
-   */ 
    public void add (Reserva r) throws Exception{
     	PreparedStatement stmt=null;
     	ResultSet keyResultSet=null;
@@ -115,22 +78,7 @@ public class DataReserva {
     		e.printStackTrace();
     	}
     } 
-  /*public void guardarSeparado(java.sql.Date fecha, java.sql.Time hora){
-	   			PreparedStatement stmt=null;
-		    	ResultSet keyResultSet=null;
-		    	try{ stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-						"insert into reserva(fecha,hora) values (?,?)"
-						); // el campo fecha es de tipo date y hora de timpo time
-				stmt.setDate(1, fecha); //parámetro de entrada del método
-				stmt.setTime(2, hora);  //parámetro de entrada del método
-				stmt.executeUpdate();
-				stmt.close();
-			} catch (SQLException | ApplicationException e) {
-				e.printStackTrace();
-			}
-		}
-*/
-
+  
 
 public ResultSet getResultSet() throws ApplicationException{	
 		PreparedStatement stmt = null;
@@ -195,30 +143,38 @@ public void delete(Reserva r){
 	
 	
 }
-/*
-public void guardarSeparado(java.sql.Date fecha, java.sql.Time hora){
-	try {
+public int  validaDisponibilidad(Reserva re) throws ApplicationException{
+	PreparedStatement stmt= null;
+	ResultSet rs=null;
+	ArrayList<Reserva> res = new ArrayList<Reserva>();
+	int i=0;
+	try{ 
+	stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "Select * from reserva r where (r.id_el=? and id_te=?) in"+
+	"(select r.id_el from reserva where r.`fecha`=? and r.hora=?)");
+		stmt.setInt(1,re.getElemento().getId_El());
+		stmt.setInt(2,re.getElemento().getTipoElemento().getId_TE());
+		stmt.setDate(3,re.getFecha());
+		stmt.setTime(4,re.getHora());
+		 
+		 rs=stmt.executeQuery();
+		 if (rs!= null ){
+			while(rs.next()){
+					i=1;
+			}
+		}
 		
-		PreparedStatement stmt=null;
-    	ResultSet keyResultSet=null;
-		
-		stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-				"insert into reserva(fecha,hora) values (?,?)"
-				); // el campo fecha es de tipo date y hora de timpo time
-		stmt.setDate(1, fecha); //parámetro de entrada del método
-		stmt.setTime(2, hora);  //parámetro de entrada del método
-		stmt.executeUpdate();
-		
-	} catch (SQLException | ApplicationException e){
-		//throw e;
-	}try {
-			if (keyResultSet!=null)keyResultSet.close();
-			if (stmt!=null)stmt.close();
-			FactoryConexion.getInstancia().releaseConn();
 	} catch (SQLException e ){
-		e.printStackTrace();
-	}
-}*/
-}
-
-
+		//throw e;
+	} catch (ApplicationException ade){
+		throw ade;
+	} try {
+		if(rs!=null) rs.close();
+		if (stmt!=null) stmt.close();
+		FactoryConexion.getInstancia().releaseConn();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return (i);
+		
+	
+} }

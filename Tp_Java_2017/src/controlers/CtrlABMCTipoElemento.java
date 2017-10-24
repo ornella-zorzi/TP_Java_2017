@@ -41,6 +41,7 @@ public class CtrlABMCTipoElemento {
 	public TipoElemento getByNombre(String nombre_TE) throws Exception {
 		TipoElemento te= new TipoElemento();
 		te.setNombre_TE(nombre_TE);
+		System.out.println(te.getNombre_TE());
 		return getByNombre(te);
 	}
 	

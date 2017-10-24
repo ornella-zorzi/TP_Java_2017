@@ -42,7 +42,7 @@ public class DataElemento {
 			return elems;
 		
 	} 
-	public ArrayList<Elemento> getAll2(int id) throws ApplicationException{
+	public ArrayList<Elemento> getElementosDeTipo(int id) throws ApplicationException{
     	PreparedStatement stmt= null;
     	ResultSet rs=null;
 		ArrayList<Elemento> elems = new ArrayList<Elemento>();

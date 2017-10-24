@@ -292,11 +292,18 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		//Time hora=this.mapearDeFormHora();
 		Reserva r= this.mapearDeForm();
 		try{
+			int valida=ctrl.validaDisponibilidad(r);
+			System.out.println(valida);
+			if (valida==0){
 			ctrl.add(r);
 			this.txtIdReserva.setText(String.valueOf(r.getId_res()));
 			notificar("Reserva creada con exito ");
 			mapearDeForm();		
 			this.limpiarCampos();
+			}
+			if (valida==1){
+				notificar("elemento ocupado para esa fecha/hora");
+			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 		}
