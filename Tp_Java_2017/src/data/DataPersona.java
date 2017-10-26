@@ -183,6 +183,40 @@ public void delete(Persona p){
 	
 	
 }
-
+public Persona getValidacionUsario(Persona usu) throws Exception{ 
+	Persona u = null ;
+	PreparedStatement stmt= null;
+	ResultSet rs=null;
+	try {
+		 stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "select p.id_per, p.dni, p.nombre, p.apellido, p.email, p.usuario, p.contraseña, p.habilitado, p.id_cat, c.nombre_cat from persona p  inner join categoria c  on p.id_cat=c.id_cat where  p.usuario= ? and p.contraseña=? ");
+		 stmt.setString(1,usu.getUsuario());
+		 stmt.setString(2,usu.getContraseña());
+		 rs=stmt.executeQuery();
+		 if(rs!=null && rs.next()){
+			 u= new Persona();
+			 u.setCategoria(new Categoria());
+			 u.setId_per(rs.getInt("id_per"));
+				u.setNombre(rs.getString("nombre"));
+				u.setApellido(rs.getString("apellido"));
+				u.setDni(rs.getString("dni"));
+				u.setEmail(rs.getString("email"));
+				//u.setUsuario(rs.getString("usuario"));
+				//u.setContraseña(rs.getString("contraseña"));
+				u.setHabilitado(rs.getBoolean("habilitado"));
+				u.getCategoria().setId_cat(rs.getInt("id_cat"));
+				u.getCategoria().setNombre_cat(rs.getString("nombre_cat"));
+		 } 
+	} catch (Exception e ){
+	    		throw e;
+	    	} finally {
+	    		try{
+	    			if(rs!=null)rs.close();
+	    			if (stmt!=null)stmt.close();
+	    			FactoryConexion.getInstancia().releaseConn();
+	    		}catch (SQLException e ){
+	    			throw e;
+	    		}
+	    	} return u;
+	} 
 
 }

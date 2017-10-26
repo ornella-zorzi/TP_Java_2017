@@ -1,5 +1,6 @@
 package controlers;
 import java.util.ArrayList;
+
 import data.DataCategoria;
 import entity.Persona;
 import entity.Categoria;
@@ -46,6 +47,7 @@ private ArrayList<Persona> pers;
 		return getByDni(p);
 	}
 	
+
 	public Persona getByNombreApellido(Persona p){
 		
 		for (int i=0; i < this.pers.size(); i++){
@@ -56,6 +58,9 @@ private ArrayList<Persona> pers;
 		}
 		return null; 
 		
+	}
+	public Persona getValidacionUsario(Persona u) throws Exception{
+		return dataPer.getValidacionUsario(u);
 	}
 	
 	public ArrayList<Persona> getAll() throws Exception {
