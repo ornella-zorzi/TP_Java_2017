@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import controlers.CtrlABMCReserva;
 import entity.Reserva;
 import entity.Elemento;
+import entity.Persona;
 import entity.TipoElemento;
 
 import java.awt.Color;
@@ -95,29 +96,29 @@ public class ListadoReserva extends JInternalFrame {
 		this.getDesktopPane().add(rd);
 		rd.setVisible(true);
 		
+		
 	}
 	protected void initDataBindings() {
 		JTableBinding<Reserva, List<Reserva>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, res, table);
 		//
-		BeanProperty<Reserva, String> reservaBeanProperty = BeanProperty.create("elemento.nombre_EL");
-		jTableBinding.addColumnBinding(reservaBeanProperty).setColumnName("Nombre el").setEditable(false);
+		org.jdesktop.beansbinding.BeanProperty<entity.Reserva, java.lang.String> reservaBeanProperty = org.jdesktop.beansbinding.BeanProperty.create("tipoelemento.nombre_TE");
+		jTableBinding.addColumnBinding(reservaBeanProperty).setColumnName("nombre te").setEditable(false);
 		//
-		BeanProperty<Reserva, String> reservaBeanProperty_1 = BeanProperty.create("tipoElemento.nombre_TE");
-		jTableBinding.addColumnBinding(reservaBeanProperty_1).setColumnName("Nombre te").setEditable(false);
+		org.jdesktop.beansbinding.BeanProperty<entity.Reserva, java.lang.String> reservaBeanProperty_1 = org.jdesktop.beansbinding.BeanProperty.create("elemento.nombre_El");
+		jTableBinding.addColumnBinding(reservaBeanProperty_1).setColumnName("nombre el").setEditable(false);
 		//
-		BeanProperty<Reserva, Date> reservaBeanProperty_2 = BeanProperty.create("fecha");
+		org.jdesktop.beansbinding.BeanProperty<entity.Reserva, java.sql.Date> reservaBeanProperty_2 = org.jdesktop.beansbinding.BeanProperty.create("fecha");
 		jTableBinding.addColumnBinding(reservaBeanProperty_2).setColumnName("fecha").setEditable(false);
 		//
-		BeanProperty<Reserva, Time> reservaBeanProperty_3 = BeanProperty.create("hora");
+		org.jdesktop.beansbinding.BeanProperty<entity.Reserva, java.sql.Time> reservaBeanProperty_3 = org.jdesktop.beansbinding.BeanProperty.create("hora");
 		jTableBinding.addColumnBinding(reservaBeanProperty_3).setColumnName("hora").setEditable(false);
-		//	
-		BeanProperty<Reserva, String> reservaBeanProperty_4 = BeanProperty.create("detalle");
+		//
+		org.jdesktop.beansbinding.BeanProperty<entity.Reserva, java.lang.String> reservaBeanProperty_4 = org.jdesktop.beansbinding.BeanProperty.create("detalle");
 		jTableBinding.addColumnBinding(reservaBeanProperty_4).setColumnName("detalle").setEditable(false);
 		//
-		BeanProperty<Reserva, String> reservaBeanProperty_5 = BeanProperty.create("estado");
+		org.jdesktop.beansbinding.BeanProperty<entity.Reserva, java.lang.String> reservaBeanProperty_5 = org.jdesktop.beansbinding.BeanProperty.create("estado");
 		jTableBinding.addColumnBinding(reservaBeanProperty_5).setColumnName("estado").setEditable(false);
 		//
-		
 		jTableBinding.setEditable(false);
 		jTableBinding.bind();
 	}
