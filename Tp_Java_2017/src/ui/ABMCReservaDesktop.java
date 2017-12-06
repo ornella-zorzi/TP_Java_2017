@@ -54,7 +54,6 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	private JComboBox cboElemento;
 	private JComboBox cboTipoElemento;
 	private JFrame frame;
-	private JComboBox cboPersona;
 
 	/**
 	 * Launch the application.
@@ -130,7 +129,12 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		btnAgregar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				agregarClick();
+				try {
+					agregarClick();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		
@@ -149,10 +153,6 @@ public class ABMCReservaDesktop extends JInternalFrame {
 				borrarClick();
 			}
 		});
-		
-		JLabel lblPersona = new JLabel("Persona");
-		
-		cboPersona = new JComboBox();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -173,11 +173,9 @@ public class ABMCReservaDesktop extends JInternalFrame {
 						.addComponent(lblTipoElemento)
 						.addComponent(lblElemento)
 						.addComponent(lblFecha)
-						.addComponent(lblEstado)
-						.addComponent(lblPersona))
+						.addComponent(lblEstado))
 					.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(cboPersona, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(txtEstado)
 						.addComponent(txtDetalle)
 						.addComponent(txtHora)
@@ -226,14 +224,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 							.addComponent(txtDetalle, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(txtEstado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(22)
-							.addComponent(lblPersona))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(18)
-							.addComponent(cboPersona, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnModificar)
 						.addComponent(btnEliminar)
@@ -287,10 +278,13 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		
 	}*/
 	
-	protected void agregarClick() {
+	protected void agregarClick() throws Exception {
 		//Date fecha=this.mapearDeFormFecha();
 		//Time hora=this.mapearDeFormHora();
+		Persona p=Logueo.u;
+		System.out.println(p.getUsuario());
 		Reserva r= this.mapearDeForm();
+		r.setPersona(p);
 		try{
 			int valida=ctrl.validaDisponibilidad(r);
 			System.out.println(valida);
@@ -345,7 +339,6 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		this.txtHora.setText(String.valueOf(re.getHora()));
 		this.txtDetalle.setText(String.valueOf(re.getDetalle()));
 		this.txtEstado.setText(String.valueOf(re.getEstado()));
-		this.cboPersona.setSelectedItem(re.getPersona());
 		//this.txtIdPer.setText(String.valueOf(re.getPersona().getId_per()));
 
 	}
@@ -366,9 +359,6 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		re.setEstado(this.txtEstado.getText());
 		re.setHora(Time.valueOf(this.txtHora.getText()));
 		re.setFecha(Date.valueOf(this.txtFecha.getText()));
-		if (cboPersona.getSelectedIndex()!= -1){
-			re.setPersona((Persona)this.cboPersona.getSelectedItem());
-		}
 		return (re);
 	}
 	
@@ -393,8 +383,6 @@ public class ABMCReservaDesktop extends JInternalFrame {
 		//this.cboElemento.setSelectedIndex(-1);
 		this.cboTipoElemento.setModel(new DefaultComboBoxModel(ctrl.getTipoElemento().toArray()));
 		this.cboTipoElemento.setSelectedIndex(-1);
-		this.cboPersona.setModel(new DefaultComboBoxModel(ctrl.getPersona().toArray()));
-		this.cboPersona.setSelectedIndex(-1);
 		
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());

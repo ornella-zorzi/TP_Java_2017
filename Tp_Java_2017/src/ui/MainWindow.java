@@ -14,7 +14,7 @@ import java.awt.BorderLayout;
 
 public class MainWindow {
 
-	private JFrame frmGestionDeReservas;
+	public JFrame frmGestionDeReservas;
 	private JDesktopPane desktopPane;
 
 	/**
@@ -73,13 +73,6 @@ public class MainWindow {
 			}
 		});
 		mnPersona.add(mntmListadopersonas);
-		JMenuItem mntmLogin = new JMenuItem("Login");
-		mntmLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				mnuLoginClick();
-			}
-		});
-		mnPersona.add(mntmLogin);
 		
 		JMenu mnElemento = new JMenu("Elemento");
 		menuBar.add(mnElemento);
@@ -184,11 +177,6 @@ public class MainWindow {
 		ListadoTipoElementos lte= new ListadoTipoElementos();
 		desktopPane.add(lte);
 		lte.setVisible(true);
-	}
-	protected void mnuLoginClick() {
-		Login l= new Login();
-		desktopPane.add(l);
-		l.setVisible(true);
 	}
 
 }  

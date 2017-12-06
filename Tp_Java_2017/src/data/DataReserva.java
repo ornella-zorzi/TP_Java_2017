@@ -156,19 +156,16 @@ public int  validaDisponibilidad(Reserva re) throws ApplicationException{
 	ArrayList<Reserva> res = new ArrayList<Reserva>();
 	int i=0;
 	try{ 
-	stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "Select * from reserva r where (r.id_el=? and id_te=?) in"+
-	"(select r.id_el from reserva where r.`fecha`=? and r.hora=?)");
+	stmt= FactoryConexion.getInstancia().getConn().prepareStatement( "Select * from reserva r where (r.id_el=? and r.id_te=? and r.fecha=? and r.hora=?)");
 		stmt.setInt(1,re.getElemento().getId_El());
 		stmt.setInt(2,re.getElemento().getTipoElemento().getId_TE());
 		stmt.setDate(3,re.getFecha());
 		stmt.setTime(4,re.getHora());
 		 
 		 rs=stmt.executeQuery();
-		 if (rs!= null ){
-			while(rs.next()){
+		 if(rs!=null && rs.next()){
 					i=1;
 			}
-		}
 		
 	} catch (SQLException e ){
 		//throw e;
