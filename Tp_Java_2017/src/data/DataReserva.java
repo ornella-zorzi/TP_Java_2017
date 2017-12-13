@@ -13,13 +13,13 @@ public class DataReserva {
 		ArrayList<Reserva> res = new ArrayList<Reserva>();
 		try{ 
 			stmt = FactoryConexion.getInstancia().getConn().createStatement();
-			rs = stmt.executeQuery("Select te.id_te, te.nombre_te, e.id_el,e.nombre_el, p.id_per,p.nombre, p.apellido, fecha, hora, detalle, estado from reserva r " +
+			rs = stmt.executeQuery("Select r.id_res, te.id_te, te.nombre_te, e.id_el,e.nombre_el, p.id_per,p.nombre, p.apellido, fecha, hora, detalle, estado from reserva r " +
 			"inner join persona p on r.id_per=p.id_per inner join elemento e on e.id_el=r.id_el inner join tipo_elemento te on te.id_te=r.id_te");
 			
 			if (rs!= null ){
 				while(rs.next()){
 					Reserva r=new Reserva();
-					System.out.println("hola");
+					r.setId_res(rs.getInt("id_res"));
 					r.setTipoelemento(new TipoElemento());
 					r.getTipoelemento().setId_TE(rs.getInt("te.id_te"));
 					r.getTipoelemento().setNombre_TE(rs.getString("te.nombre_te"));
@@ -34,7 +34,6 @@ public class DataReserva {
 					r.setFecha(rs.getDate("fecha"));
 					r.setDetalle(rs.getString("detalle"));
 					r.setEstado(rs.getString("estado"));
-					System.out.println(r.getDetalle());
 					res.add(r);
 						
 				}
@@ -181,4 +180,6 @@ public int  validaDisponibilidad(Reserva re) throws ApplicationException{
 		return (i);
 		
 	
-} }
+} 
+
+}

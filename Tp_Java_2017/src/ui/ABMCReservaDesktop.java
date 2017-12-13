@@ -333,7 +333,7 @@ public class ABMCReservaDesktop extends JInternalFrame {
 	
 	private void mapearAForm(Reserva re){
 		this.txtIdReserva.setText(String.valueOf(re.getId_res()));
-		this.cboTipoElemento.setSelectedItem(re.getElemento().getTipoElemento());
+		this.cboTipoElemento.setSelectedItem(re.getTipoelemento());
 		this.cboElemento.setSelectedItem(re.getElemento());
 		this.txtFecha.setText(String.valueOf(re.getFecha()));
 		this.txtHora.setText(String.valueOf(re.getHora()));
